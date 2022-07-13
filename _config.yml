@@ -3,7 +3,7 @@ url: https://dbadoy.github.io
 author: dbadoy
 email: dbadoy4874@gmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
-  dbadoy 블로그
+  dbadoy 블로그입니다.
 show_excerpts: true # set to true to show excerpts on the homepage
 
 paginate: 1
@@ -34,7 +34,7 @@ dash:
       color: purple
 
   # wether the author box should be displayed
-  show_author: false
+  show_author: yes
 
   # the animation speed of the scroll-in effect
   animation_speed: 50
