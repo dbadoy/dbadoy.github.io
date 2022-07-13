@@ -4,9 +4,9 @@ author: dbadoy
 email: dbadoy4874@gmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
   dbadoy 블로그
-show_excerpts: false # set to true to show excerpts on the homepage
+show_excerpts: true # set to true to show excerpts on the homepage
 
-paginate: 5
+paginate: 1
 paginate_path: "/blog/page:num/"
 
 tag_permalink_style: pretty
