@@ -1,10 +1,8 @@
-title: dash
-author: GitHub User
-email: miguel-gonzalez@gmx.de
+title: dbadoy
+author: dbadoy
+email: dbadoy4874@gmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  dbadoy 블로그
 show_excerpts: false # set to true to show excerpts on the homepage
 
 paginate: 1
@@ -22,23 +20,20 @@ dash:
 
   # (optional) discqus comment configuration
   disqus:
-    shortname: bitbrain-github-io
+    shortname: dbadoy.dev
 
   # generate social links in footer
   # supported colors: green, red, orange, blue, cyan, pink, teal, yellow, indigo, purple
   social_links:
-    - url: https://twitter.com/bitbrain_
-      icon: twitter-square
-      color: cyan
-    - url: https://bitbrain.itch.io
-      icon: itch-io
-      color: red
-    - url: https://github.com/bitbrain
+    - url: https://velog.io/@dbadoy
+      icon: blogger-io
+      color: purple
+    - url: https://github.com/dbadoy
       icon: github-square
       color: purple
 
   # wether the author box should be displayed
-  show_author: true
+  show_author: false
 
   # the animation speed of the scroll-in effect
   animation_speed: 50
@@ -47,8 +42,8 @@ dash:
   rtl: false
 
   # Replaces the default avatar provider (gravatar)
-  #avatar_source: github
-  #github_username: bitbrain
+  avatar_source: github
+  github_username: dbadoy
   #avatar_source: local
   #avatar_path: /assets/avatar.png
 
