@@ -6,8 +6,17 @@ layout: default
 {% endunless %}
 {{ content }}
 {% assign posts_count = paginator.posts | size %}
-{% if posts_count > 0 %}
-<h1>recent articles</h1>
+<h1 style="color: rgb(8, 197, 62);">Hi</h1>
+
+안녕하세요. 블록체인 개발자 유승배입니다. <br>
+저는 벨로그도 운영하고 있는데, 벨로그에는 CS 및 기술 분석 내용을 올리고 본 블로그에는 
+프로젝트 진행하며 배운 것, 오픈 소스 기여 등 실무 관련 내용을 올리려고 합니다.
+글 보시다 궁금한 점이나 정정할 부분 있으면 편히 이메일 주세요. 의견 나누면 좋을 것 같습니다.
+<br><br>
+dbadoy4874@gmail.com
+
+<!-- {% if posts_count > 0 %} -->
+<!-- <h1>recent articles</h1>
     <div class="post-links">
       {% for post in paginator.posts %}
         <div class="post-link-wrapper">
@@ -34,9 +43,8 @@ layout: default
           </div>
         </div>
       {% endfor %}
-    </div>
+    </div> -->
 
-    {% include pagination.html %}
 
     {% include tagcloud.html %}
 {% else %}

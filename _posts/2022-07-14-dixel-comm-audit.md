@@ -9,7 +9,7 @@ Dixel Club 에서 진행했던 smart contract community audit에 참가하여 �
 진행 기간 : 6월 2일 ~ 6월 12일 
 
 ## 1) PR - scripts/deploy: add verifying contract logic at once.
-URL : https://github.com/Steemhunt/dixel-v2-contract/pull/18
+[URL](https://github.com/Steemhunt/dixel-v2-contract/pull/18)
 
 해당 프로젝트에서는 smart contract 배포를 hardhat으로 진행하고 있었다.
 배포 코드 중,
@@ -42,7 +42,7 @@ hardhat verify는 이더스캔에서 contract address의 바이트코드를 검�
 
 ## 2) Issue - Split updateBeneficiary() in DixelClubV2Factory.sol
 
-URL : https://github.com/Steemhunt/dixel-v2-contract/issues/20
+[URL](https://github.com/Steemhunt/dixel-v2-contract/issues/20)
 
 smart contract를 보다가,
 ```typescript
@@ -73,20 +73,22 @@ function updateCreationFee(uint256 newCreationFee) external onlyOwner {
   creationFee = newCreationFee;
 }
 ```
+<br>
 만약 beneficiary, mintingFee, creationFee 세가지 변수가 서로 연관이 있어 한 번에 수정되는 경우가 대다수라면 기존 코드가 맞겠지만, 그 문제에 대해서는 확신이 없어 issue를 생성했다.
+<br>
 그 결과 ...
 ![](https://velog.velcdn.com/images/dbadoy/post/e5c4bf59-1caa-4a97-918e-c1cf8cb0f768/image.png)
 해당 내용이 적용되었다.
 
 ## 3) PR - all: typo - remove blank.
-URL : https://github.com/Steemhunt/dixel-v2-contract/pull/22
+[URL](https://github.com/Steemhunt/dixel-v2-contract/pull/22)
 
 단순히 if문 안에 불필요한 공백을 처리한 PR 이다. 
 
 결과 : Merged
 
 ## 4) Issue - Optimize gas cost in for loop.
-URL - https://github.com/Steemhunt/dixel-v2-contract/issues/23
+[URL](https://github.com/Steemhunt/dixel-v2-contract/issues/23)
 
 해당 audit에서 가장 재밌고 흥미로웠던 부분은 for문에서의 gas cost optimize 부분이었다.
 처음에는 다른 분이 commit 하신 코드를 보며 몰랐던 사실을 알게되어 재밌었다.
@@ -241,7 +243,7 @@ length가 20인 address array의 경우에 14237의 gas를 절약할 수 있었�
 작업 후, 코드에 반영되었다.
 
 ## 5) PR - contracts: early check that the fee is correct.
-URL - https://github.com/Steemhunt/dixel-v2-contract/pull/26
+[URL](https://github.com/Steemhunt/dixel-v2-contract/pull/26)
 
 ```typescript
 if(bytes(name).length == 0) revert DixelClubV2Factory__BlankedName();

@@ -27,7 +27,7 @@ dash:
   # supported colors: green, red, orange, blue, cyan, pink, teal, yellow, indigo, purple
   social_links:
     - url: https://velog.io/@dbadoy
-      icon: blogger-io
+      icon: blogger
       color: purple
     - url: https://github.com/dbadoy
       icon: github-square
