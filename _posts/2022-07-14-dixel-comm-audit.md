@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Dixel club communidy audit"
+title:  "Dixel club community audit"
 tags: audit solidity
 ---
 
