@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://dbadoy.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://dbadoy.github.io/" rel="alternate" type="text/html" /><updated>2022-07-27T11:55:44+00:00</updated><id>https://dbadoy.github.io/feed.xml</id><title type="html">dbadoy</title><subtitle>dbadoy 블로그입니다.
+</subtitle><author><name>dbadoy</name></author><entry><title type="html">[Open]common, les: use AbsTime.Add() for syntax #25417</title><link href="https://dbadoy.github.io/2022/07/27/25417.html" rel="alternate" type="text/html" title="[Open]common, les: use AbsTime.Add() for syntax #25417" /><published>2022-07-27T00:00:00+00:00</published><updated>2022-07-27T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/07/27/25417</id><content type="html" xml:base="https://dbadoy.github.io/2022/07/27/25417.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25417">PR #25417</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25417]]></summary></entry><entry><title type="html">[Closed]all: add # before block numbers in log. #25373</title><link href="https://dbadoy.github.io/2022/07/22/25373.html" rel="alternate" type="text/html" title="[Closed]all: add # before block numbers in log. #25373" /><published>2022-07-22T00:00:00+00:00</published><updated>2022-07-22T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/07/22/25373</id><content type="html" xml:base="https://dbadoy.github.io/2022/07/22/25373.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25373">PR #25373</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25373]]></summary></entry><entry><title type="html">[Merged]eth, internal, light: Incorrectly formatted error string, ST1005 #25364</title><link href="https://dbadoy.github.io/2022/07/21/25364.html" rel="alternate" type="text/html" title="[Merged]eth, internal, light: Incorrectly formatted error string, ST1005 #25364" /><published>2022-07-21T00:00:00+00:00</published><updated>2022-07-21T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/07/21/25364</id><content type="html" xml:base="https://dbadoy.github.io/2022/07/21/25364.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25364">PR #25364</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25364]]></summary></entry><entry><title type="html">[Closed]eth/filters: preallocate filterIndex in EventSystem.eventLoop() #25363</title><link href="https://dbadoy.github.io/2022/07/21/25363.html" rel="alternate" type="text/html" title="[Closed]eth/filters: preallocate filterIndex in EventSystem.eventLoop() #25363" /><published>2022-07-21T00:00:00+00:00</published><updated>2022-07-21T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/07/21/25363</id><content type="html" xml:base="https://dbadoy.github.io/2022/07/21/25363.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25363">PR #25363</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25363]]></summary></entry><entry><title type="html">[Approved]core/bloom_indexer: preallocate batch in bloomIndexer #25289</title><link href="https://dbadoy.github.io/2022/07/15/25289.html" rel="alternate" type="text/html" title="[Approved]core/bloom_indexer: preallocate batch in bloomIndexer #25289" /><published>2022-07-15T00:00:00+00:00</published><updated>2022-07-15T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/07/15/25289</id><content type="html" xml:base="https://dbadoy.github.io/2022/07/15/25289.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25289">PR #25289</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25289]]></summary></entry><entry><title type="html">[Closed]ethdb/memorydb: make keyvalue slice with cap #25274</title><link href="https://dbadoy.github.io/2022/07/15/25274.html" rel="alternate" type="text/html" title="[Closed]ethdb/memorydb: make keyvalue slice with cap #25274" /><published>2022-07-15T00:00:00+00:00</published><updated>2022-07-15T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/07/15/25274</id><content type="html" xml:base="https://dbadoy.github.io/2022/07/15/25274.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25274">PR #25274</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25274]]></summary></entry><entry><title type="html">Dixel club community audit</title><link href="https://dbadoy.github.io/2022/07/14/dixel-comm-audit.html" rel="alternate" type="text/html" title="Dixel club community audit" /><published>2022-07-14T00:00:00+00:00</published><updated>2022-07-14T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/07/14/dixel-comm-audit</id><content type="html" xml:base="https://dbadoy.github.io/2022/07/14/dixel-comm-audit.html"><![CDATA[<p>Dixel Club 에서 진행했던 smart contract community audit에 참가하여 활동한 내역을 나중에 보기 쉽게 정리 해보려 한다.</p>
+
+<p>진행 기간 : 6월 2일 ~ 6월 12일</p>
+
+<h2 id="1-pr---scriptsdeploy-add-verifying-contract-logic-at-once">1) PR - scripts/deploy: add verifying contract logic at once.</h2>
+<p><a href="https://github.com/Steemhunt/dixel-v2-contract/pull/18">URL</a></p>
+
+<p>해당 프로젝트에서는 smart contract 배포를 hardhat으로 진행하고 있었다.
+배포 코드 중,</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`
+    npx hardhat verify --network </span><span class="p">${</span><span class="nx">hre</span><span class="p">.</span><span class="nx">network</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">factory</span><span class="p">.</span><span class="nx">address</span><span class="p">}</span><span class="s2">
+    npx hardhat verify --network </span><span class="p">${</span><span class="nx">hre</span><span class="p">.</span><span class="nx">network</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">nftImplementation</span><span class="p">}</span><span class="s2">
+  `</span><span class="p">);</span>
+</code></pre></div></div>
+<p>모든 배포가 끝난 후, verify를 하기 위하여 배포된 contract address가 포함된 커맨드를 로깅 해주고 있다.
+이 코드를 보고, 이전에 hardhat을 이용하여 smart contract 테스트 스크립트를 작성하며 알 수 있었던, npx hardhat 커맨드를 코드 레벨에서 실행 시킬 수 있는 방법이 떠올랐다.</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">hre</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">hardhat</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">hre</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">COMMAND</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span><span class="na">PARAMETER_NAME</span><span class="p">:</span> <span class="nx">VALUE</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>따라서, verify를 배포와 동시에 진행할 수 있도록 아래와 같이 수정하여 PR을 전송했다.</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">hre</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="dl">'</span><span class="s1">verify</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">address</span><span class="p">:</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">address</span><span class="p">});</span>
+ <span class="nx">hre</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="dl">'</span><span class="s1">verify</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">address</span><span class="p">:</span> <span class="nx">nftImplementation</span><span class="p">});</span>
+</code></pre></div></div>
+
+<p><img src="https://velog.velcdn.com/images/dbadoy/post/2cf6d398-0044-4a74-b1e6-1e1be0c7c9dd/image.png" alt="" />
+이렇게 첫번째 PR이 merge 되었다.
+그러나…
+<img src="https://velog.velcdn.com/images/dbadoy/post/ae1b5775-2d38-4ad7-ae07-319628afcb0b/image.png" alt="" />
+revert 됨…
+hardhat verify는 이더스캔에서 contract address의 바이트코드를 검증하는 과정인데, 배포된 후 이더스캔에 바로 추가가 되는 것이 아닌, 몇 분의 시간이 걸린다고 한다. 그래서 내가 추가한 verify는 무조건 실패가 뜨게 된 것이다.</p>
+
+<h2 id="2-issue---split-updatebeneficiary-in-dixelclubv2factorysol">2) Issue - Split updateBeneficiary() in DixelClubV2Factory.sol</h2>
+
+<p><a href="https://github.com/Steemhunt/dixel-v2-contract/issues/20">URL</a></p>
+
+<p>smart contract를 보다가,</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">updateBeneficiary</span><span class="p">(</span><span class="nx">address</span> <span class="nx">newAddress</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">newCreationFee</span><span class="p">,</span> <span class="nx">uint256</span> <span class="nx">newMintingFee</span><span class="p">)</span> <span class="nx">external</span> <span class="nx">onlyOwner</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">newAddress</span> <span class="o">==</span> <span class="nx">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__ZeroAddress</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">newMintingFee</span> <span class="o">&gt;</span> <span class="nx">FRICTION_BASE</span><span class="p">)</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__InvalidFee</span><span class="p">();</span>
+  
+  <span class="nx">beneficiary</span> <span class="o">=</span> <span class="nx">newAddress</span><span class="p">;</span>
+  <span class="nx">mintingFee</span> <span class="o">=</span> <span class="nx">newMintingFee</span><span class="p">;</span>
+  <span class="nx">creationFee</span> <span class="o">=</span> <span class="nx">newCreationFee</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>이와 같이 contract logic에 영향을 미치는 변수를 변경하는 메서드가 있었다.
+그러나, beneficiary, mintingFee, creationFee 세 값을 한번에 변경할 때는 편하겠지만, 이 중 하나만 바꾸는 경우라면, 그 외의 값을을 contract에서 가져와 입력해주어야 하는 과정이 필요하고, 이는 휴먼 에러가 발생할 가능성과 불필요한 작업을 하게 될 것으로 보였다.
+따라서,</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">updateBeneficiary</span><span class="p">(</span><span class="nx">address</span> <span class="nx">newAddress</span><span class="p">)</span> <span class="nx">external</span> <span class="nx">onlyOwner</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">newAddress</span> <span class="o">==</span> <span class="nx">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__ZeroAddress</span><span class="p">();</span>
+  <span class="nx">beneficiary</span> <span class="o">=</span> <span class="nx">newAddress</span><span class="p">;</span>
+<span class="p">}</span>
+    
+<span class="kd">function</span> <span class="nx">updateMintingFee</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">newMintingFee</span><span class="p">)</span> <span class="nx">external</span> <span class="nx">onlyOwner</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">newMintingFee</span> <span class="o">&gt;</span> <span class="nx">FRICTION_BASE</span><span class="p">)</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__InvalidFee</span><span class="p">();</span>
+  <span class="nx">mintingFee</span> <span class="o">=</span> <span class="nx">newMintingFee</span><span class="p">;</span>
+<span class="p">}</span>
+    
+<span class="kd">function</span> <span class="nx">updateCreationFee</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">newCreationFee</span><span class="p">)</span> <span class="nx">external</span> <span class="nx">onlyOwner</span> <span class="p">{</span>
+  <span class="nx">creationFee</span> <span class="o">=</span> <span class="nx">newCreationFee</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br />
+만약 beneficiary, mintingFee, creationFee 세가지 변수가 서로 연관이 있어 한 번에 수정되는 경우가 대다수라면 기존 코드가 맞겠지만, 그 문제에 대해서는 확신이 없어 issue를 생성했다.
+<br />
+그 결과 …
+<img src="https://velog.velcdn.com/images/dbadoy/post/e5c4bf59-1caa-4a97-918e-c1cf8cb0f768/image.png" alt="" />
+해당 내용이 적용되었다.</p>
+
+<h2 id="3-pr---all-typo---remove-blank">3) PR - all: typo - remove blank.</h2>
+<p><a href="https://github.com/Steemhunt/dixel-v2-contract/pull/22">URL</a></p>
+
+<p>단순히 if문 안에 불필요한 공백을 처리한 PR 이다.</p>
+
+<p>결과 : Merged</p>
+
+<h2 id="4-issue---optimize-gas-cost-in-for-loop">4) Issue - Optimize gas cost in for loop.</h2>
+<p><a href="https://github.com/Steemhunt/dixel-v2-contract/issues/23">URL</a></p>
+
+<p>해당 audit에서 가장 재밌고 흥미로웠던 부분은 for문에서의 gas cost optimize 부분이었다.
+처음에는 다른 분이 commit 하신 코드를 보며 몰랐던 사실을 알게되어 재밌었다.</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">getWhitelistAllowanceLeft</span><span class="p">(</span><span class="nx">address</span> <span class="nx">wallet</span><span class="p">)</span> <span class="nx">external</span> <span class="nx">view</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">uint256</span> <span class="nx">allowance</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">uint256</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">_whitelist</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="c1">// gas saving</span>
+  <span class="k">for</span> <span class="p">(</span><span class="nx">uint256</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span> <span class="o">!=</span> <span class="nx">length</span><span class="p">;)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">_whitelist</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">wallet</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">allowance</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nx">unchecked</span> <span class="p">{</span>
+          <span class="o">++</span><span class="nx">i</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">allowance</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위의 코드에서 배운 두 가지를 적어보려 한다.</p>
+<h3 id="1---unchecked">1 - Unchecked</h3>
+<p>Solidity 0.8 버전부터는 산술 연산에서 overflow를 체크해주기 때문에 SafeMath 라이브러리 사용 필요성이 없어졌다. 하지만, 체크가 필요없는 경우에 overflow 체크는 오버헤드를 발생시키기 때문에, 이런 경우에는 unchecked 키워드를 사용하면 gas를 줄일 수 있다.
+unchecked는 해당 스코프안 산술 연산에 대한 overflow 체크를 하지 않는 키워드다.
+이와 관련해서 직접 테스트를 하여 gas를 비교해보았다.</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">CheckedSumCase</span><span class="p">(</span><span class="nx">uint</span> <span class="nx">loopCount</span><span class="p">)</span> <span class="nx">external</span> <span class="p">{</span>
+	<span class="nx">uint</span> <span class="nx">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="nx">uint</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">loopCount</span><span class="p">;</span> <span class="nx">i</span> <span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">temp</span> <span class="o">+=</span> <span class="nx">i</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nx">result</span> <span class="o">=</span> <span class="nx">temp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">UncheckedSumCase</span><span class="p">(</span><span class="nx">uint</span> <span class="nx">loopCount</span><span class="p">)</span> <span class="nx">external</span> <span class="p">{</span>
+	<span class="nx">uint</span> <span class="nx">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="nx">uint</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">loopCount</span><span class="p">;)</span> <span class="p">{</span>
+		<span class="nx">temp</span> <span class="o">+=</span> <span class="nx">i</span><span class="p">;</span>
+		<span class="nx">unchecked</span> <span class="p">{</span>
+			<span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="nx">result</span> <span class="o">=</span> <span class="nx">temp</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loopCount = 10
+CheckedSumCase gasUsed: 43689
+UncheckedSumCase gasUsed: 42927
+
+loopCount = 100
+CheckedSumCase gasUsed: 60969
+UncheckedSumCase gasUsed: 53547
+
+loopCount = 1000
+CheckedSumCase gasUsed: 233833
+UncheckedSumCase gasUsed: 159811
+</code></pre></div></div>
+<p>꽤 차이가 난다.
+위 코드에서도 보면, 이와 같이 for문에 i 증감 연산을 unchecked에 포함시켜 gas optimize를 했다.</p>
+
+<h3 id="2---for문-length">2 - for문 length</h3>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">uint</span><span class="p">[]</span> <span class="nx">data</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">uint</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+ 	<span class="c1">// do something </span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>일반적으로 사용하는 for문은 위와 같이 사용한다.
+그런데 내가 본 코드에서는 아래와 같이 사용하고 있다.</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">uint</span><span class="p">[]</span> <span class="nx">data</span><span class="p">;</span>
+
+<span class="nx">uint</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nx">uint</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span> <span class="o">!=</span> <span class="nx">len</span><span class="p">;)</span> <span class="p">{</span>
+ 	<span class="c1">// do something </span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>왜일까?
+테스트를 해보니 놀랍게도 for문을 돌 때마다, data를 SLOAD 하여 length를 구하고 있다.
+data의 length가 100이라면, for문이 100번 돌아가며 SLOAD 또한 100번을 하는 것이다…
+SLOAD opcode gas cost는 200으로, 100번의 경우 20000 gas, 1000번의 경우 200000 gas …
+크기가 늘어날 수록 gas도 비례하여 늘어날 것이다.
+이 말은, 이 부분에 관련해서 optimize를 하면 그만큼 gas를 많이 절약할 수 있다는 것이다.</p>
+
+<p>** + SLOAD 한다는 것 증명했던 방법 **
+uint[] data 
+data에 100개의 숫자를 넣고 for문을 돌렸을 때와 90개의 숫자를 넣고 돌렸을 때, gasUsed 가 2000 차이 난다. (SLOAD 200 * 10 = 2000)</p>
+
+<p>이와 같은 맥락으로 생각해보았을 때, for문 안에서 어떤 storage 데이터에 계속해서 접근하는 것 보다, 한번 가져오고 for문에서는 가져온 값에 접근을 하는 것은 어떨까? 라는 생각이 들었다.
+먼저 테스트를 해보았다.</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">address</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="nx">addrs</span> <span class="o">=</span> <span class="p">[</span> <span class="p">...</span> <span class="p">]</span>
+
+<span class="kd">function</span> <span class="nx">origin</span><span class="p">()</span> <span class="nx">external</span> <span class="p">{</span>
+    <span class="nx">uint256</span> <span class="nx">dummy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">uint256</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">addrs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">uint256</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">addrs</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">dummy</span> <span class="o">+=</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">unchecked</span> <span class="p">{</span>
+            <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">suggest1</span><span class="p">()</span> <span class="nx">external</span> <span class="p">{</span>
+    <span class="nx">uint256</span> <span class="nx">dummy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">address</span><span class="p">[]</span> <span class="nx">memory</span> <span class="nx">temp</span> <span class="o">=</span> <span class="nx">addrs</span><span class="p">;</span>
+    <span class="nx">uint256</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">temp</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">uint256</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">temp</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">dummy</span> <span class="o">+=</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">unchecked</span> <span class="p">{</span>
+            <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">suggest2</span><span class="p">()</span> <span class="nx">external</span> <span class="p">{</span>
+    <span class="nx">uint256</span> <span class="nx">dummy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">address</span><span class="p">[]</span> <span class="nx">storage</span> <span class="nx">temp</span> <span class="o">=</span> <span class="nx">addrs</span><span class="p">;</span>
+    <span class="nx">uint256</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">temp</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">uint256</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">temp</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">dummy</span> <span class="o">+=</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">unchecked</span> <span class="p">{</span>
+            <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위와 같이, length가 20인 address array를 만들어 준 후, 
+origin()에서는 기존과 같이 storage data에 매번 접근하는 경우.
+suggest1()에서는 for문 시작전 memory 변수에 값을 가져오는 경우.
+suggest2()에서는 storage 변수에 값을 가져오는 경우. (사실상 의미 없다.)
+이렇게 세가지로 나누어 테스트를 진행했다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>origin() gasUsed : 57873
+suggest1() gasUsed : 43636
+suggest2() gasUsed : 57925
+</code></pre></div></div>
+<p>57873 - 43636 = 14237</p>
+
+<p>length가 20인 address array의 경우에 14237의 gas를 절약할 수 있었으며, array의 크기가 커질 수록, 해당 optimize의 효과는 커질 것으로 보인다.
+이는 유의미하다고 생각되어 Issue를 생성했다.</p>
+
+<p><img src="https://velog.velcdn.com/images/dbadoy/post/eaf012a3-27a1-491a-8af6-3182c841f685/image.png" alt="" /></p>
+
+<p>작업 후, 코드에 반영되었다.</p>
+
+<h2 id="5-pr---contracts-early-check-that-the-fee-is-correct">5) PR - contracts: early check that the fee is correct.</h2>
+<p><a href="https://github.com/Steemhunt/dixel-v2-contract/pull/26">URL</a></p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="nx">bytes</span><span class="p">(</span><span class="nx">name</span><span class="p">).</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__BlankedName</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">bytes</span><span class="p">(</span><span class="nx">symbol</span><span class="p">).</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__BlankedSymbol</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">bytes</span><span class="p">(</span><span class="nx">description</span><span class="p">).</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">)</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__DescriptionTooLong</span><span class="p">();</span> <span class="c1">// ~900 gas per character</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">metaData</span><span class="p">.</span><span class="nx">maxSupply</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">metaData</span><span class="p">.</span><span class="nx">maxSupply</span> <span class="o">&gt;</span> <span class="nx">MAX_SUPPLY</span><span class="p">)</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__InvalidMaxSupply</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">metaData</span><span class="p">.</span><span class="nx">royaltyFriction</span> <span class="o">&gt;</span> <span class="nx">MAX_ROYALTY_FRACTION</span><span class="p">)</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__InvalidRoyalty</span><span class="p">();</span>
+
+<span class="c1">// Validate `symbol`, `name` and `description` to ensure generateJSON() creates a valid JSON</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">StringUtils</span><span class="p">.</span><span class="nx">validJSONValue</span><span class="p">(</span><span class="nx">name</span><span class="p">))</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__NameContainedMalicious</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">StringUtils</span><span class="p">.</span><span class="nx">validJSONValue</span><span class="p">(</span><span class="nx">symbol</span><span class="p">))</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__SymbolContainedMalicious</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">StringUtils</span><span class="p">.</span><span class="nx">validJSONValue</span><span class="p">(</span><span class="nx">description</span><span class="p">))</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__DescriptionContainedMalicious</span><span class="p">();</span>
+
+<span class="c1">// Neutralize minting starts date</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">metaData</span><span class="p">.</span><span class="nx">mintingBeginsFrom</span> <span class="o">&lt;</span> <span class="nx">block</span><span class="p">.</span><span class="nx">timestamp</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">metaData</span><span class="p">.</span><span class="nx">mintingBeginsFrom</span> <span class="o">=</span> <span class="nx">uint40</span><span class="p">(</span><span class="nx">block</span><span class="p">.</span><span class="nx">timestamp</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">creationFee</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">value</span> <span class="o">!=</span> <span class="nx">creationFee</span><span class="p">)</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__InvalidCreationFee</span><span class="p">();</span>
+
+    <span class="c1">// Send fee to the beneficiary</span>
+    <span class="p">(</span><span class="nx">bool</span> <span class="nx">sent</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nx">beneficiary</span><span class="p">.</span><span class="nx">call</span><span class="p">{</span> <span class="nl">value</span><span class="p">:</span> <span class="nx">creationFee</span> <span class="p">}(</span><span class="dl">""</span><span class="p">);</span>
+    <span class="nx">require</span><span class="p">(</span><span class="nx">sent</span><span class="p">,</span> <span class="dl">"</span><span class="s2">CREATION_FEE_TRANSFER_FAILED</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위 코드는 사용자가 파라미터들을 체크해준 후, creationFee가 0보다 크게 설정되어 있을 경우 beneficiary address에 transfer 하는, 실제 수행할 로직 전에 체크해주는 코드의 일부이다.
+먼저 StringUtils.validJSONValue 메서드를 살펴보자.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">validJSONValue</span><span class="p">(</span><span class="kr">string</span> <span class="nx">calldata</span> <span class="nx">haystack</span><span class="p">)</span> <span class="nx">internal</span> <span class="nx">pure</span> <span class="nx">returns</span> <span class="p">(</span><span class="nx">bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bytes</span> <span class="nx">memory</span> <span class="nx">haystackBytes</span> <span class="o">=</span> <span class="nx">bytes</span><span class="p">(</span><span class="nx">haystack</span><span class="p">);</span>
+    <span class="nx">uint256</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">haystackBytes</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">uint256</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">i</span> <span class="o">!=</span> <span class="nx">length</span><span class="p">;)</span> <span class="p">{</span>
+        <span class="nx">bytes1</span> <span class="nx">char</span> <span class="o">=</span> <span class="nx">haystackBytes</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">char</span> <span class="o">&lt;</span> <span class="mh">0x20</span> <span class="o">||</span> <span class="nx">char</span> <span class="o">==</span> <span class="mh">0x22</span> <span class="o">||</span> <span class="nx">char</span> <span class="o">==</span> <span class="mh">0x5c</span> <span class="o">||</span> <span class="nx">char</span> <span class="o">==</span> <span class="mh">0x7f</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nx">unchecked</span> <span class="p">{</span>
+            <span class="o">++</span><span class="nx">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>안에 확인하는 값은 제쳐두고, 해당 메서드는 주어진 파라미터의 크기만큼 순회하고 있다는 것을 볼 수 있다. 위 코드에서 description 같은 경우는 length가 1000보다 작을 경우 에러를 리턴하는 것으로 부터 꽤 큰 길이의 파라미터라는 것을 유추할 수 있고, description이 validJSONValue() 메서드로 넘어가면 가볍지만은 않을 것이다.
+필요한 확인 작업이라면 리소스가 전혀 아깝지 않지만, validJSONValue() 메서드 확인이 끝난 후 creationFee를 체크하는 과정에서, fee가 부족하여 revert가 발생하면 위에 수행한 작업들이 헛수고가 된다.
+따라서 creationFee를 먼저 체크하고 통과하는 경우에 validJSONValue()를 수행하는 것이 바람직하다고 생각이 들어 PR을 만들었다.</p>
+
+<p>(수정 코드)</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">creationFee</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">value</span> <span class="o">!=</span> <span class="nx">creationFee</span><span class="p">)</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__InvalidCreationFee</span><span class="p">();</span>
+
+    <span class="c1">// Send fee to the beneficiary</span>
+    <span class="p">(</span><span class="nx">bool</span> <span class="nx">sent</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nx">beneficiary</span><span class="p">.</span><span class="nx">call</span><span class="p">{</span> <span class="nl">value</span><span class="p">:</span> <span class="nx">creationFee</span> <span class="p">}(</span><span class="dl">""</span><span class="p">);</span>
+    <span class="nx">require</span><span class="p">(</span><span class="nx">sent</span><span class="p">,</span> <span class="dl">"</span><span class="s2">CREATION_FEE_TRANSFER_FAILED</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Validate `symbol`, `name` and `description` to ensure generateJSON() creates a valid JSON</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">StringUtils</span><span class="p">.</span><span class="nx">validJSONValue</span><span class="p">(</span><span class="nx">name</span><span class="p">))</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__NameContainedMalicious</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">StringUtils</span><span class="p">.</span><span class="nx">validJSONValue</span><span class="p">(</span><span class="nx">symbol</span><span class="p">))</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__SymbolContainedMalicious</span><span class="p">();</span>
+</code></pre></div></div>
+<p><br />
+(재수정 코드)<br />
+validJSONValue 또한, 충족되어야 하는 검증과정이기 때문에 성공적으로 검증이 끝난 후 fee를 보내는 것이 코드를 읽을 때 좋을 것 같아 아래와 같이 수정했다.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">value</span> <span class="o">!=</span> <span class="nx">creationFee</span><span class="p">)</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__InvalidCreationFee</span><span class="p">();</span>
+<span class="c1">// Validate `symbol`, `name` and `description` to ensure generateJSON() creates a valid JSON</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">StringUtils</span><span class="p">.</span><span class="nx">validJSONValue</span><span class="p">(</span><span class="nx">name</span><span class="p">))</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__NameContainedMalicious</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">StringUtils</span><span class="p">.</span><span class="nx">validJSONValue</span><span class="p">(</span><span class="nx">symbol</span><span class="p">))</span> <span class="nx">revert</span> <span class="nx">DixelClubV2Factory__SymbolContainedMalicious</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">creationFee</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Send fee to the beneficiary</span>
+    <span class="p">(</span><span class="nx">bool</span> <span class="nx">sent</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nx">beneficiary</span><span class="p">.</span><span class="nx">call</span><span class="p">{</span> <span class="nl">value</span><span class="p">:</span> <span class="nx">creationFee</span> <span class="p">}(</span><span class="dl">""</span><span class="p">);</span>
+    <span class="nx">require</span><span class="p">(</span><span class="nx">sent</span><span class="p">,</span> <span class="dl">"</span><span class="s2">CREATION_FEE_TRANSFER_FAILED</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>결과
+<img src="https://velog.velcdn.com/images/dbadoy/post/9f43fade-c394-4f07-a669-19222404eb5b/image.png" alt="" /></p>
+
+<p>Merge 되었다.</p>
+
+<h2 id="마치며">마치며)</h2>
+<p>사실, 어떻게 하면 더 나을까 혼자 고민하며 얻은 것 보다는 다른 사람들이 만든 Issue와 PR을 보며 얻는 것이 더 많았었다. 오픈 소스에 기여도 물론 좋지만, 기본 지식을 더욱 단단히 다지는 것이 중요하다는 것을 깨달을 수 있었던 경험이었다. 즐거웠다.</p>]]></content><author><name>dbadoy</name></author><category term="audit" /><category term="solidity" /><summary type="html"><![CDATA[Dixel Club 에서 진행했던 smart contract community audit에 참가하여 활동한 내역을 나중에 보기 쉽게 정리 해보려 한다.]]></summary></entry><entry><title type="html">[Merged]core, eth: pre-allocate map in storage copy #25279</title><link href="https://dbadoy.github.io/2022/07/14/25279.html" rel="alternate" type="text/html" title="[Merged]core, eth: pre-allocate map in storage copy #25279" /><published>2022-07-14T00:00:00+00:00</published><updated>2022-07-14T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/07/14/25279</id><content type="html" xml:base="https://dbadoy.github.io/2022/07/14/25279.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25279">PR #25279</a></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">s</span> <span class="n">Storage</span><span class="p">)</span> <span class="n">Copy</span><span class="p">()</span> <span class="n">Storage</span> <span class="p">{</span>
+	<span class="n">cpy</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="n">Storage</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">s</span> <span class="p">{</span>
+		<span class="n">cpy</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위와 같은 Copy() 메서드는 변수를 할당할 때 메모리 사용량을 알 수 있기 때문에 초기할당을 하는 것이 성능에 좋다.</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cpy</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="n">Storage</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+</code></pre></div></div>
+<p>Map 같은 경우에는, 요소가 계속 추가되다 보면 capacity를 늘린 map을 새로 선언하고, 기존 map에 있는 값을 새로운 map에 복사하는 resizing 작업이 존재한다. <br />
+(왜냐하면… key:value를 매칭시킬 때, key를 만드는 과정에서 암호화 해시가 아니다보니 중복되는 해시값이 발생하고, 이런 경우 해당 키에 linked로 요소를 추가하기 때문에 탐색 시간이 O(1)이 아니게 되는…) <br /></p>
+
+<p>PR을 올렸는데 멤버중 한분이 고맙게도 벤치마크를 해줬다. <br /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cpu: Intel(R) Xeon(R) Platinum 8124M CPU @ 3.00GHz
+BenchmarkMapPreSize-8               4238            257385 ns/op
+BenchmarkMap-8                      2210            542090 ns/op
+</code></pre></div></div>
+<p><br />
+속도가 꽤 차이난다. 코딩을 할 때, 확실하게 메모리 사용량을 유추할 수 있을 때는 사전할당을 꼭 하자</p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25279]]></summary></entry><entry><title type="html">[Closed]graphql: remove underscore variable that has no effect. #25151</title><link href="https://dbadoy.github.io/2022/07/14/25151.html" rel="alternate" type="text/html" title="[Closed]graphql: remove underscore variable that has no effect. #25151" /><published>2022-07-14T00:00:00+00:00</published><updated>2022-07-14T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/07/14/25151</id><content type="html" xml:base="https://dbadoy.github.io/2022/07/14/25151.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25151">PR #25151</a></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="n">w</span><span class="o">.</span><span class="n">Header</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"Content-Type"</span><span class="p">,</span> <span class="s">"application/json; charset=utf-8"</span><span class="p">)</span>
+<span class="n">w</span><span class="o">.</span><span class="n">Header</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"X-Content-Type-Options"</span><span class="p">,</span> <span class="s">"nosniff"</span><span class="p">)</span>
+<span class="n">w</span><span class="o">.</span><span class="n">WriteHeader</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+<span class="n">w</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+</code></pre></div></div>
+
+<p>go-ethereum 코드를 보다가, 위와 같은 로직을 보았다. <br />
+왜 밑에서 두번째 Write()는 리턴을 명시하고 맨 밑에는 왜 또 명시를 안해놓았을까? <br /> 
+이는 실수로 보여서 고친 뒤 PR을 날렸다. <br />
+_, _ 를 지우는 방식으로 고친 뒤 날렸는데 그 이유로는 go-ethereum 코드에서는 종종 리턴값을 돌려 받지 않는 경우가 있다. <br />
+예시로 rlp.encode 같은 경우, 메서드 리턴값을 error가 있으나, 대부분 리턴값을 아예 받지 않으며 사용하고 있다. <br />
+에러가 확실히 발생하지 않더라도 이를 받아 nil 체크해주는 것이 안전해보이지만… 일단은 해당 repo 규칙을 따라 지워서 보낸다 <br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>karalabe
+Myeah, you're right, but it's not our code so I'd rather just leave it be and not open up a can of worms with fixing stuff.
+</code></pre></div></div>
+<p>go-ethereum 멤버도 이를 알고 있으나, 외부 코드기 때문에 굳이 건드리지 않는 것으로 보인다.
+재밌는 점은 다른 멤버가 남겨준 코멘트다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>holiman 
+Actually, I think the code as it was is better anyway. Some linters complain when you ignore returnvalues, since it's an indication that errors are not being handled. The underscore serves to signal that the returnvalues are _intentionally_ ignored, not just an oversight.
+</code></pre></div></div>
+<p>이 사람은 어찌됐건 리턴을 명시해주는 것이 옳은 것이라 생각한다고 한다. lint를 돌릴 때 리턴을 명시해주지 않은 것들에 대한 경고를 띄우기 때문에 명시하는 것이 명확하다고 한다. <br />
+하지만 그렇다고 하면 리턴을 명시해주지 않은 것들에 모두 리턴을 받아주는 것이 맞지 않나 싶지만… 여러 사람이 작업하는 repo다 보니 각자 스타일이 다르겠거니 하고 넘어간다. <br />
+코딩에 무조건적인 답은 없다는 것을 다시 한번 느끼는 시간이었다. 여러 근거를 캐치할 수 있는 능력을 키우면 선택지가 넓어지겠다. <br /></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25151]]></summary></entry><entry><title type="html">[Closed]Reduce StateDB load count in GetTransactionCount() #25207</title><link href="https://dbadoy.github.io/2022/07/14/25207.html" rel="alternate" type="text/html" title="[Closed]Reduce StateDB load count in GetTransactionCount() #25207" /><published>2022-07-14T00:00:00+00:00</published><updated>2022-07-14T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/07/14/25207</id><content type="html" xml:base="https://dbadoy.github.io/2022/07/14/25207.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/issues/25207">ISSUE #25207</a></p>
+
+<p><br />
+해당 이슈를 만들게 된 것은 아래 링크의 글로부터 시작했다. <br />
+<a href="https://velog.io/@dbadoy/%EC%9D%B4%EB%8D%94%EB%A6%AC%EC%9B%80-%EC%BD%94%EC%96%B4-get-Nonce-%EA%B3%BC%EC%A0%95">Velog</a> <br />
+처음에는 그저 address의 nonce값을 가져오는 과정이 궁금하여 찾아보았는데, 찾다보니 txNoncer라는 것을 보게되었다. <br />
+txNoncer는 txPool에 포함되는 모듈로, pending transaction까지 모두 포함한 nonce 값을 캐싱하고 있는 구조체다. <br /></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">txNoncer</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">fallback</span> <span class="o">*</span><span class="n">state</span><span class="o">.</span><span class="n">StateDB</span>
+	<span class="n">nonces</span>   <span class="k">map</span><span class="p">[</span><span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">]</span><span class="kt">uint64</span>
+	<span class="n">lock</span>     <span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>기존에 nonce 값을 가져올 때는, DB에서 그 값을 가져오는 반면 txNoncer에서 nonce 값을 가져올 때는 map에서 값을 가져오기 때문에 훨씬 빠를 것이다. <br />
+그래서 생각이 든 것은, 최대한 DB에서 값을 가져오는 것 보다는 txNoncer를 활용하는 것이 어떨까? 였다. <br /></p>
+
+<p>txNoncer의 map에는 transaction pool에 들어가있는 nonce 값까지 갖고 있다. <br />
+실제 state에 ‘0x0001’의 nonce 값이 5이고, transaction pool에 ‘0x0001’ 의 트랜잭션이 두 개가 들어가 있으면, <br /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{..., from: '0x0001', nonce: 6 }
+{..., from: '0x0001', nonce: 7 }
+</code></pre></div></div>
+<p>txNoncer map에는 map[‘0x0001] == 8 이 들어가있는 것이다. <br />
+transaction pool 에는 pending과 queue, 두 개가 transaction을 보관하고 있다. <br />
+pending에는 실행이 가능한 transaction이 모여있고. queue에는 현재 실행 불가능한 transaction이 모여 있다. (예를 들어, nonce가 7인 ‘0x0001’ address로, nonce 20으로 설정하여 transaction을 보내면 노드 transaction pool의 queue에 들어가게 된다.) <br />
+이를 이용하여 getTransactionCount()를 optimize 해보자. <br />
+만약 transaction pool의 pending, queue에 transaction이 하나도 없다면, txNoncer에 캐싱된 nonce값과 실제 state의 nonce값은 동일할 것이다. 그렇다면 굳이 db로 부터 state를 새로 생성하여 nonce를 가져올 필요 없이, txNoncer로 부터 가져오는 게 어떨까? <br /></p>
+
+<p>라는 아이디어로 ‘아 이거는 말이 된다. 적용되겠다’ 하며 Issue를 생성했는데… <br />
+좋지 않은 생각이라고 한다. <br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>karalabe 
+Both versions abuse the txpool as a cache for a statedb, which is bad imho. When accessing stuff from an existing block, we should not rely on some quirky behavior of the pool.
+</code></pre></div></div>
+<p>블록에 있는 데이터에 접근 할 때는, 다른 것에 의존해서는 안된다는 답이 왔다. <br />
+만약 웹 백엔드 서버였어도 이 같은 제안이 거절되었을까? 더 빠르고 부담도 적게 원하는 값을 가져올 수 있는 방법인데. <br />
+블록체인에서는 단순히 리소스나 성능을 생각하는 것이 아닌, 블록에 있는 데이터와 캐시에 있는 데이터가 확실히 일치하는 경우에도 블록에 데이터를 가져오는 것이다. <br />
+이런 점들이 블록체인에 재미를 느끼게 해주는 것 같다. 재밌는 경험이었다. <br /></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[ISSUE #25207]]></summary></entry></feed>
