@@ -61,4 +61,6 @@ func Test2(code int) error {
 - golang 기본 패키지 중 net/http 에서는 errors.New()를 사용하긴 하더라.
 - go-ethereum 에서는 fmt.Errorf()를 많이 사용한다.
 
-http://cloudrain21.com/go-how-to-concatenate-strings
+
+[String Concatenation 관련 글 추천](http://cloudrain21.com/go-how-to-concatenate-strings)
+
