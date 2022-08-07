@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "sync.Mutex vs sync.Atomic"
-tags: go-bench
+tags: go-benchmark
 ---
 
 # sync.Mutex vs sync.Atomic
