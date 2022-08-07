@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "sync.Mutex vs sync.Atomic"
+title:  "sync.Mutex() vs sync.Atomic()"
 tags: go-benchmark
 ---
 
-# sync.Mutex vs sync.Atomic
+# sync.Mutex() vs sync.Atomic()
 고루틴을 사용할 때는 특정 변수에 여러 고루틴이 접근하며 데드락이 발생하는 것을 막을 필요가 있다.
 해당 글에서는 Mutext와 Atomic의 속도를 비교해 본다.
 
