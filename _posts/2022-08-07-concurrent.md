@@ -25,7 +25,8 @@ type Test struct {
 	mu   sync.Mutex
 }
 
-func BenchmarkMutex(b *testing.B) {
+// Set
+func BenchmarkMutexSet(b *testing.B) {
 	t := Test{}
 	for i := 0; i < b.N; i++ {
 		t.mu.Lock()
@@ -34,17 +35,43 @@ func BenchmarkMutex(b *testing.B) {
 	}
 }
 
-func BenchmarkAtomic(b *testing.B) {
+func BenchmarkAtomicSet(b *testing.B) {
 	t := Test{}
 	for i := 0; i < b.N; i++ {
 		atomic.StoreUint32(&t.data, uint32(i))
 	}
 }
+
+// Load
+func BenchmarkMutexLoad(b *testing.B) {
+	t := Test{
+		data: 1,
+	}
+	for i := 0; i < b.N; i++ {
+		t.mu.Lock()
+		_ = t.data
+		t.mu.Unlock()
+	}
+}
+
+func BenchmarkAtomicLoad(b *testing.B) {
+	t := Test{
+		data: 1,
+	}
+	for i := 0; i < b.N; i++ {
+		_ = atomic.LoadUint32(&t.data)
+	}
+}
+
 ```
 
 ```
-BenchmarkMutex-10             1000000                17.74 ns/op
-BenchmarkAtomic-10            1000000                0.3628 ns/op
+# Set
+BenchmarkMutexSet-10             1000000                26.86 ns/op
+BenchmarkAtomicSet-10            1000000                 0.4546 ns/op
+# Load
+BenchmarkMutexLoad-10            1000000                18.83 ns/op
+BenchmarkAtomicLoad-10           1000000                 0.6662 ns/op
 ```
 
 물론 사용처가 다르고, 활용 범위가 넓은 Mutex를 주로 사용하게 되긴 하지만... 
