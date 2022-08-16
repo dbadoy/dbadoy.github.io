@@ -73,10 +73,10 @@ type FileInfo interface {
 
 benchmark 메모리 할당값
 ```
-BenchmarkStatExistFile-10                1000000               481.4 ns/op           272 B/op          3 allocs/op
-BenchmarkOpenExistFile-10                1000000               554.6 ns/op            64 B/op          2 allocs/op
-BenchmarkStatNotExistFile-10             1000000               509.7 ns/op           272 B/op          3 allocs/op
-BenchmarkOpenNotExistFile-10             1000000               565.8 ns/op            64 B/op          2 allocs/op
+BenchmarkStatExistFile-10                481.4 ns/op           272 B/op          3 allocs/op
+BenchmarkOpenExistFile-10                554.6 ns/op            64 B/op          2 allocs/op
+BenchmarkStatNotExistFile-10             509.7 ns/op           272 B/op          3 allocs/op
+BenchmarkOpenNotExistFile-10             565.8 ns/op            64 B/op          2 allocs/op
 ```
 
 <br>
