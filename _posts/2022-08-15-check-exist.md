@@ -5,7 +5,7 @@ tags: go-benchmark
 ---
 
 # os.Stat() vs os.Open()
-일단, 위의 두 메서드는 사용처가 다르다. os.Stat()의 경우 파일에 대한 정보를 얻을 때 주로 사용하며, os.File()의 경우, 파일을 컨트롤 할 때 사용한다.<br>
+일단, 위의 두 메서드는 사용처가 다르다. os.Stat()의 경우 파일에 대한 정보를 얻을 때 사용하며, os.File()의 경우, 파일을 컨트롤 할 때 사용한다.<br>
 내가 이 글에서 비교하고자 하는 상황은, 파일이 존재하는지 확인하는 경우이다.
 
 # 결론
@@ -59,6 +59,7 @@ os.Stat()이 더 빠르긴 하지만, 드라마틱하게 빠르진 않다. 약 1
 막연히 os.Stat()이 빠르다고 생각하던 이유는, os.File()은 직접 파일하고 연결되기 때문에, 파일 정보만 읽어오는 os.Stat()이 더 빠르겠다는 단순한 생각이었다. <br>
 하지만, os.File() 리턴값 자체는 파일에 접근할 File Descriptor만 넘어오기 때문에 그렇게 차이가 크지 않았던 것이다. <br><br>
 
+그러한 점에서, 파일 정보를 변수에 담아 리턴하는 os.Stat()이 메모리 할당량이 더 크다 <br>
 ```go
 type FileInfo interface {
 	Name() string       // base name of the file
@@ -77,7 +78,6 @@ BenchmarkOpenExistFile-10                1000000               554.6 ns/op      
 BenchmarkStatNotExistFile-10             1000000               509.7 ns/op           272 B/op          3 allocs/op
 BenchmarkOpenNotExistFile-10             1000000               565.8 ns/op            64 B/op          2 allocs/op
 ```
-그러한 점에서, 파일 정보를 변수에 담아 리턴하는 os.Stat()이 메모리 할당량이 더 크다 <br>
 
 <br>
 아무튼... 결과적으로,
