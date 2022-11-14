@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Closed]graphql: remove underscore variable that has no effect. #25151 | dbadoy</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="[Closed]graphql: remove underscore variable that has no effect. #25151" />
+<meta name="author" content="dbadoy" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="PR #25151" />
+<meta property="og:description" content="PR #25151" />
+<link rel="canonical" href="https://dbadoy.github.io/2022/07/14/25151.html" />
+<meta property="og:url" content="https://dbadoy.github.io/2022/07/14/25151.html" />
+<meta property="og:site_name" content="dbadoy" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-14T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Closed]graphql: remove underscore variable that has no effect. #25151" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"dbadoy"},"dateModified":"2022-07-14T00:00:00+00:00","datePublished":"2022-07-14T00:00:00+00:00","description":"PR #25151","headline":"[Closed]graphql: remove underscore variable that has no effect. #25151","mainEntityOfPage":{"@type":"WebPage","@id":"https://dbadoy.github.io/2022/07/14/25151.html"},"url":"https://dbadoy.github.io/2022/07/14/25151.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://dbadoy.github.io/feed.xml" title="dbadoy" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">dbadoy</a>
+    <span class="social_links">
+        
+        
+        <a class="color-purple-hover" href="https://velog.io/@dbadoy"><i class="fab fa-blogger"></i></a>
+        
+        
+        
+        <a class="color-purple-hover" href="https://github.com/dbadoy"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://github.com/dbadoy.png
+" class="author-avatar" alt="Avatar" />
+<div class="description">dbadoy 블로그입니다.
+</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">[Closed]graphql: remove underscore variable that has no effect. #25151</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/go-ethereum/">go-ethereum</a>
+      
+  </div>
+  
+  <div class="post-date">Published on 14 Jul 2022</div>
+  
+  <p><a href="https://github.com/ethereum/go-ethereum/pull/25151">PR #25151</a></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="n">w</span><span class="o">.</span><span class="n">Header</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"Content-Type"</span><span class="p">,</span> <span class="s">"application/json; charset=utf-8"</span><span class="p">)</span>
+<span class="n">w</span><span class="o">.</span><span class="n">Header</span><span class="p">()</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"X-Content-Type-Options"</span><span class="p">,</span> <span class="s">"nosniff"</span><span class="p">)</span>
+<span class="n">w</span><span class="o">.</span><span class="n">WriteHeader</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+<span class="n">w</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+</code></pre></div></div>
+
+<p>go-ethereum 코드를 보다가, 위와 같은 로직을 보았다. <br />
+왜 밑에서 두번째 Write()는 리턴을 명시하고 맨 밑에는 왜 또 명시를 안해놓았을까? <br /> 
+이는 실수로 보여서 고친 뒤 PR을 날렸다. <br />
+_, _ 를 지우는 방식으로 고친 뒤 날렸는데 그 이유로는 go-ethereum 코드에서는 종종 리턴값을 돌려 받지 않는 경우가 있다. <br />
+예시로 rlp.encode 같은 경우, 메서드 리턴값을 error가 있으나, 대부분 리턴값을 아예 받지 않으며 사용하고 있다. <br />
+에러가 확실히 발생하지 않더라도 이를 받아 nil 체크해주는 것이 안전해보이지만… 일단은 해당 repo 규칙을 따라 지워서 보낸다 <br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>karalabe
+Myeah, you're right, but it's not our code so I'd rather just leave it be and not open up a can of worms with fixing stuff.
+</code></pre></div></div>
+<p>go-ethereum 멤버도 이를 알고 있으나, 외부 코드기 때문에 굳이 건드리지 않는 것으로 보인다.
+재밌는 점은 다른 멤버가 남겨준 코멘트다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>holiman 
+Actually, I think the code as it was is better anyway. Some linters complain when you ignore returnvalues, since it's an indication that errors are not being handled. The underscore serves to signal that the returnvalues are _intentionally_ ignored, not just an oversight.
+</code></pre></div></div>
+<p>이 사람은 어찌됐건 리턴을 명시해주는 것이 옳은 것이라 생각한다고 한다. lint를 돌릴 때 리턴을 명시해주지 않은 것들에 대한 경고를 띄우기 때문에 명시하는 것이 명확하다고 한다. <br />
+하지만 그렇다고 하면 리턴을 명시해주지 않은 것들에 모두 리턴을 받아주는 것이 맞지 않나 싶지만… 여러 사람이 작업하는 repo다 보니 각자 스타일이 다르겠거니 하고 넘어간다. <br />
+코딩에 무조건적인 답은 없다는 것을 다시 한번 느끼는 시간이었다. 여러 근거를 캐치할 수 있는 능력을 키우면 선택지가 넓어지겠다. <br /></p>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'https://dbadoy.github.io/2022/07/14/25151.html';
+     this.page.identifier = '/2022/07/14/25151';
+     this.page.title = '[Closed]graphql: remove underscore variable that has no effect. #25151';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//dbadoy.dev.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2022/11/13/cap.html">
+            CAP
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/11/04/string-copy.html">
+            bytes.Buffer vs copy string
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/08/23/25570.html">
+            [Opened]rpc: check the JSON-RPC 2.0 spec that Version must be 2.0 #25570
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>카테고리</h2>
+  <div class="tag-cloud"><a href="/tag/audit/" class="set-1">audit</a> <a href="/tag/distributed-system/" class="set-1">distributed-system</a> <a href="/tag/go-benchmark/" class="set-2">go-benchmark</a> <a href="/tag/go-ethereum/" class="set-5">go-ethereum</a> <a href="/tag/go-ipfs/" class="set-1">go-ipfs</a> <a href="/tag/solidity/" class="set-1">solidity</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

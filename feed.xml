@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://dbadoy.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://dbadoy.github.io/" rel="alternate" type="text/html" /><updated>2022-11-14T13:02:39+00:00</updated><id>https://dbadoy.github.io/feed.xml</id><title type="html">dbadoy</title><subtitle>dbadoy 블로그입니다.
+</subtitle><author><name>dbadoy</name></author><entry><title type="html">CAP</title><link href="https://dbadoy.github.io/2022/11/13/cap.html" rel="alternate" type="text/html" title="CAP" /><published>2022-11-13T00:00:00+00:00</published><updated>2022-11-13T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/11/13/cap</id><content type="html" xml:base="https://dbadoy.github.io/2022/11/13/cap.html"><![CDATA[<p><strong>Consistency, Availability, Partition-Tolerance</strong></p>
+
+<p>분산 데이터베이스에서는 위 세 가지 중 두 가지만 제공할 수 있다고 말합니다.</p>
+
+<p>(; 메세지가 손실될 수 있는 비동기식 네트워크에서는 모든 메세지 손실 패턴에서 모든 요청에 응답하는 순차적으로 일관된 읽기/쓰기 레지스터를 구현하는 것이 불가능하다.)</p>
+
+<p>단 해당 이론에는 Partition Tolerance에 대한 정의가 부족하다는 문제가 제기 되거나, 분산 시스템에는 더 많은 요소들이 있다고 주장하는 의견도 있는 만큼 참고만 하는 것이 좋아보입니다.</p>
+
+<h3 id="consistency-일관성">Consistency (일관성)</h3>
+
+<p>모든 클라이언트가 동시에 동일 데이터를 볼 수 있습니다. 모든 읽기는 가장 최근에 쓰인 값이나 에러를 수신합니다.</p>
+
+<h3 id="availability-유효성">Availability (유효성)</h3>
+
+<p>하나 이상의 노드가 작동 중지된 경우에도 클라이언트가 응답을 받을 수 있습니다. 가장 최근에 쓰인 값이 포함되어 있다는 보장 없이 응답을 수신합니다.</p>
+
+<h3 id="partition-tolerance-파티션-허용--분할-내구성">Partition Tolerance (파티션 허용 = 분할 내구성)</h3>
+
+<p>분산 시스템 내의 통신 단절, 네트워크 및  노드의 연결 유실 등으로 네트워크가 분리되었을 때도 시스템이 작동해야 합니다.</p>
+
+<p>Partition Tolerance는 크게 아래의 두 행동을 할 수 있습니다.</p>
+
+<ul>
+  <li>작업을 취소하여 가용성을 희생하여 일관성을 보장합니다.</li>
+  <li>작업을 진행하여 가용성을 제공하지만 일관성을 희생합니다.</li>
+</ul>
+
+<p>CAP에서 말하는 일관성은 transaction의 ACID에서의 일관성과는 많이 다릅니다.</p>
+
+<blockquote>
+  <p>Transaction ACID의 일관성?
+트랜잭션이 일어난 이후의 데이터베이스는 데이터베이스의 제약이나 규칙을 만족해야 한다.</p>
+
+</blockquote>
+
+<p>그러나 분산 시스템은 네트워크 장애로부터 안전하지 않으므로 네트워크 분할을 허용해야 합니다. 따라서 CAP에 따르면 일관성, 유효성  중 하나만 선택할 수 있게 됩니다.</p>
+
+<p><strong>각 모델에 따른 허점</strong></p>
+
+<h3 id="cp-모델">CP 모델</h3>
+
+<p>완벽한 일관성을 가져야 하는 시스템에서 사용합니다. 데이터 변경은 모든 노드에 복제되어야 완료됩니다. 가용성이나 성능이 크게 희생됩니다(만약 하나의 노드라도 문제가 있으면 트랜잭션이 실패되며 노드가 늘어날 수록 지연시간이 길어집니다).</p>
+
+<h3 id="ca-모델">CA 모델</h3>
+
+<p>일관성과 가용성을 모두 만족하려면 네트워크 장애를 허용하지 않아야 합니다. 그러나 네트워크 장애가 없는 시스템은 없기 때문에 모델 구성에 ‘P’가 필수적이게 됩니다.</p>
+
+<h3 id="ap-모델">AP 모델</h3>
+
+<p>가용성을 갖는 분산 시스템은 모든 노드가 어떤 상황에서도 응답할 수 있어야 합니다. 만약 네트워크 문제로 인하여 어떤 노드에 복제가 제대로 이루어지지 않더라도 가용성을 위하여 동기화 되지 않은 데이터를 사용자에게 반환합니다. 때문에 일관성을 갖지 못하고, 사용자는 문제 발생을 알아차리지 못하게 됩니다.</p>
+
+<p>보통 분산 데이터베이스는 복제와 샤딩 기능을 지원합니다. 복제 기능으로 인하여 모든 노드가 동일한 데이터를 가져 일관성을 충족합니다. 샤딩을 통해 데이터를 각 노드에 나눠서 저장하기 때문에 유효성도 얻을 수 있습니다.</p>
+
+<p>NoSQL 같은 경우는 데이터의 전파를 느슨하게 처리합니다. 데이터의 변경을 시간의 흐름에 따라 여러 노드로 전파하죠. 이러한 방법을 최종 일관성(Eventual consistency)라고 합니다.</p>
+
+<p>이 방법에서는 두가지 방법을 통해 노드간 데이터 동기화를 이룹니다.</p>
+
+<ol>
+  <li>데이터의 저장 결과를 클라이언트로 응답하기 전에 모든 데이터를 저장하는 동기식 방법. 느리지만 데이터의 일관성을 보장합니다.</li>
+  <li>메모리나 임시 파일에 기록하여 클라이언트에 응답한 뒤, 이벤트 및 프로세스를 사용하여 노드로 데이터를 동기화하는 비동기식 방법. 빠른 응답시간을 갖지만 쓰는 과정에서 장애가 발생하면 데이터 손실이 일어날 수 있습니다.</li>
+</ol>]]></content><author><name>dbadoy</name></author><category term="distributed-system" /><summary type="html"><![CDATA[Consistency, Availability, Partition-Tolerance]]></summary></entry><entry><title type="html">bytes.Buffer vs copy string</title><link href="https://dbadoy.github.io/2022/11/04/string-copy.html" rel="alternate" type="text/html" title="bytes.Buffer vs copy string" /><published>2022-11-04T00:00:00+00:00</published><updated>2022-11-04T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/11/04/string-copy</id><content type="html" xml:base="https://dbadoy.github.io/2022/11/04/string-copy.html"><![CDATA[<h1 id="bytesbuffer-vs-copy-string">bytes.Buffer vs copy string</h1>
+<p>String을 byte array에 이어 붙어야 하는 경우가 종종 있다. <br />
+여기서는 bytes.Buffer.WriteString()을 쓰는 경우와 copy() 를 쓰는 경우를 비교해본다 <br /></p>
+
+<h1 id="결론">결론</h1>
+<p>copy()가 빠르다.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">test</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"bytes"</span>
+	<span class="s">"testing"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">BenchmarkBuffer</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">buf</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBufferString</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+		<span class="n">buf</span><span class="o">.</span><span class="n">WriteString</span><span class="p">(</span><span class="s">"hello,"</span><span class="p">)</span>
+		<span class="n">buf</span><span class="o">.</span><span class="n">WriteString</span><span class="p">(</span><span class="s">" world"</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">BenchmarkCopy</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">bb</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="m">12</span><span class="p">)</span>
+		<span class="n">ref</span> <span class="o">:=</span> <span class="m">0</span>
+		<span class="n">ref</span> <span class="o">+=</span> <span class="nb">copy</span><span class="p">(</span><span class="n">bb</span><span class="p">[</span><span class="o">:</span><span class="p">],</span> <span class="s">"hello,"</span><span class="p">)</span>
+		<span class="n">ref</span> <span class="o">+=</span> <span class="nb">copy</span><span class="p">(</span><span class="n">bb</span><span class="p">[</span><span class="n">ref</span><span class="o">:</span><span class="p">],</span> <span class="s">" world"</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BenchmarkBuffer-10      10000000                 9.441 ns/op           0 B/op          0 allocs/op
+BenchmarkCopy-10        10000000                 1.063 ns/op           0 B/op          0 allocs/op
+</code></pre></div></div>
+
+<p>bytes.Buffer.WriteString()의 내부 동작에서 결국에는 copy(b[:], “string”) 과 같이 copy를 쓰긴한다. 그러나 Buffer 구조체 안 []byte의 용량을 재할당하는 작업이 포함되어 있기 때문에, 만약 추가할 문자열의 length를 초기에 파악할 수 있다면 바로 copy를 쓰는 것이 더 빠르다. <br />
+근데 대부분… 문자열의 length를 buffer 선언 시점에 알 수 있는 경우는 드문것 같다. <br /></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">buf</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBufferString</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">s</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">list</span> <span class="p">{</span>
+	<span class="n">buf</span><span class="o">.</span><span class="n">WriteString</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+</code></pre></div></div>
+
+<p>이런식으로 순회를하며 전개하는 경우라면, 총 추가되어야 할 문자열의 크기를 알지 못하기 때문에 buffer를 사용하여 용량 재할당까지 의존하는 것이 편할 것이다. <br />
+또, copy를 쓰겠다고 <br /></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">totalCap</span> <span class="o">:=</span> <span class="m">0</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">s</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">list</span> <span class="p">{</span>
+	<span class="n">totalCap</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">buf</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="n">totalCap</span><span class="p">)</span>
+<span class="n">ref</span> <span class="o">:=</span> <span class="m">0</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">s</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">list</span> <span class="p">{</span>
+	<span class="n">ref</span> <span class="o">+=</span> <span class="nb">copy</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="n">ref</span><span class="o">:</span><span class="p">],</span> <span class="n">s</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>문자열 크기를 구하는 for 문을 추가하는 것은 가독성 측면에서 그다지 좋은 선택은 아닌 것 같다. <br />
+그러나 속도나 메모리 할당을 신경쓴다면 위와 같은 구현이 말이 안되는 것은 아니다. 500개의 문자열을 갖는 배열으로 테스트를 해봤을 때, 위 코드의 구현 방식이 2배 이상 빨랐으며 메모리 할당이 현저히 적었다(Buffer.WriteString()가 작동할 때, 내부 버퍼의 용량이 꽉차면 크기를 늘린 버퍼를 재할당하는 과정이 있기 때문에). <br />
+<br /></p>
+
+<p>다른 글들의 마무리와 마찬가지로… 상황에 맞게 잘 판단하여 사용하자.</p>]]></content><author><name>dbadoy</name></author><category term="go-benchmark" /><summary type="html"><![CDATA[bytes.Buffer vs copy string String을 byte array에 이어 붙어야 하는 경우가 종종 있다. 여기서는 bytes.Buffer.WriteString()을 쓰는 경우와 copy() 를 쓰는 경우를 비교해본다]]></summary></entry><entry><title type="html">[Opened]rpc: check the JSON-RPC 2.0 spec that Version must be 2.0 #25570</title><link href="https://dbadoy.github.io/2022/08/23/25570.html" rel="alternate" type="text/html" title="[Opened]rpc: check the JSON-RPC 2.0 spec that Version must be 2.0 #25570" /><published>2022-08-23T00:00:00+00:00</published><updated>2022-08-23T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/08/23/25570</id><content type="html" xml:base="https://dbadoy.github.io/2022/08/23/25570.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25570">PR #25570</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25570]]></summary></entry><entry><title type="html">[Merged]core: reduce system call about os #25530</title><link href="https://dbadoy.github.io/2022/08/23/25530.html" rel="alternate" type="text/html" title="[Merged]core: reduce system call about os #25530" /><published>2022-08-23T00:00:00+00:00</published><updated>2022-08-23T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/08/23/25530</id><content type="html" xml:base="https://dbadoy.github.io/2022/08/23/25530.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25530">PR #25530</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25530]]></summary></entry><entry><title type="html">[Closed]rpc: reduce mutex range #25560</title><link href="https://dbadoy.github.io/2022/08/23/25560.html" rel="alternate" type="text/html" title="[Closed]rpc: reduce mutex range #25560" /><published>2022-08-23T00:00:00+00:00</published><updated>2022-08-23T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/08/23/25560</id><content type="html" xml:base="https://dbadoy.github.io/2022/08/23/25560.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25560">PR #25560</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25560]]></summary></entry><entry><title type="html">[Closed]node: rename isNonEmptyDir to isEmptyDir #25520</title><link href="https://dbadoy.github.io/2022/08/23/25520.html" rel="alternate" type="text/html" title="[Closed]node: rename isNonEmptyDir to isEmptyDir #25520" /><published>2022-08-23T00:00:00+00:00</published><updated>2022-08-23T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/08/23/25520</id><content type="html" xml:base="https://dbadoy.github.io/2022/08/23/25520.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25520">PR #25520</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25520]]></summary></entry><entry><title type="html">os.Stat() vs os.Open() in check the file does exist</title><link href="https://dbadoy.github.io/2022/08/15/check-exist.html" rel="alternate" type="text/html" title="os.Stat() vs os.Open() in check the file does exist" /><published>2022-08-15T00:00:00+00:00</published><updated>2022-08-15T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/08/15/check-exist</id><content type="html" xml:base="https://dbadoy.github.io/2022/08/15/check-exist.html"><![CDATA[<h1 id="osstat-vs-osopen">os.Stat() vs os.Open()</h1>
+<p>일단, 위의 두 메서드는 사용처가 다르다. os.Stat()의 경우 파일에 대한 정보를 얻을 때 사용하며, os.File()의 경우, 파일을 컨트롤 할 때 사용한다.<br />
+내가 이 글에서 비교하고자 하는 상황은, 파일이 존재하는지 확인하는 경우이다.</p>
+
+<h1 id="결론">결론</h1>
+<p>단순히 생각해보았을 때, 파일에 대한 정보만 가져오는 os.Stat()이 훨씬 빠를 것 같다.
+실제로도 더 빠르다.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">test</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"os"</span>
+	<span class="s">"testing"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">BenchmarkStatExistFile</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Stat</span><span class="p">(</span><span class="s">"./source"</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">BenchmarkOpenExistFile</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s">"./source"</span><span class="p">)</span>
+
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">BenchmarkStatNotExistFile</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Stat</span><span class="p">(</span><span class="s">"./sourceaaaaaa"</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">BenchmarkOpenNotExistFile</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s">"./sourceaaaaaa"</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BenchmarkStatExistFile-10                1000000               480.1 ns/op
+BenchmarkOpenExistFile-10                1000000               567.5 ns/op
+BenchmarkStatNotExistFile-10             1000000               483.3 ns/op
+BenchmarkOpenNotExistFile-10             1000000               570.2 ns/op
+</code></pre></div></div>
+
+<p>os.Stat()이 더 빠르긴 하지만, 드라마틱하게 빠르진 않다. 약 18% 정도? <br /></p>
+
+<p>막연히 os.Stat()이 빠르다고 생각하던 이유는, os.File()은 직접 파일하고 연결되기 때문에, 파일 정보만 읽어오는 os.Stat()이 더 빠르겠다는 단순한 생각이었다. <br />
+하지만, os.File() 리턴값 자체는 파일에 접근할 File Descriptor만 넘어오기 때문에 그렇게 차이가 크지 않았던 것이다. <br /><br /></p>
+
+<p>그러한 점에서, 파일 정보를 변수에 담아 리턴하는 os.Stat() 메모리 할당량이 더 크다 <br /></p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">FileInfo</span> <span class="k">interface</span> <span class="p">{</span>
+	<span class="n">Name</span><span class="p">()</span> <span class="kt">string</span>       <span class="c">// base name of the file</span>
+	<span class="n">Size</span><span class="p">()</span> <span class="kt">int64</span>        <span class="c">// length in bytes for regular files; system-dependent for others</span>
+	<span class="n">Mode</span><span class="p">()</span> <span class="n">FileMode</span>     <span class="c">// file mode bits</span>
+	<span class="n">ModTime</span><span class="p">()</span> <span class="n">time</span><span class="o">.</span><span class="n">Time</span> <span class="c">// modification time</span>
+	<span class="n">IsDir</span><span class="p">()</span> <span class="kt">bool</span>        <span class="c">// abbreviation for Mode().IsDir()</span>
+	<span class="n">Sys</span><span class="p">()</span> <span class="n">any</span>           <span class="c">// underlying data source (can return nil)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>benchmark 메모리 할당값</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BenchmarkStatExistFile-10                481.4 ns/op           272 B/op          3 allocs/op
+BenchmarkOpenExistFile-10                554.6 ns/op            64 B/op          2 allocs/op
+BenchmarkStatNotExistFile-10             509.7 ns/op           272 B/op          3 allocs/op
+BenchmarkOpenNotExistFile-10             565.8 ns/op            64 B/op          2 allocs/op
+</code></pre></div></div>
+
+<p><br />
+아무튼… 결과적으로,</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">err</span> <span class="kt">error</span>
+<span class="c">// case 1</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s">"./test.txt"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">IsNotExist</span><span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c">// not exist</span>
+<span class="p">}</span>
+
+<span class="c">// case2</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Stat</span><span class="p">(</span><span class="s">"./test.txt"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">IsNotExist</span><span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c">// not exist</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위 두개는 굳이 성능을 생각하여 골라 쓸 필요는 없다고 생각된다. 굳이 굳이 성능적인 측면을 비교 해 보자면, 속도가 중요하면 os.Stat(), 메모리 절약이 중요하면 os.File()이 되겠다.</p>]]></content><author><name>dbadoy</name></author><category term="go-benchmark" /><summary type="html"><![CDATA[os.Stat() vs os.Open() 일단, 위의 두 메서드는 사용처가 다르다. os.Stat()의 경우 파일에 대한 정보를 얻을 때 사용하며, os.File()의 경우, 파일을 컨트롤 할 때 사용한다. 내가 이 글에서 비교하고자 하는 상황은, 파일이 존재하는지 확인하는 경우이다.]]></summary></entry><entry><title type="html">[Opened]account/abi: increase error message coverage #25489</title><link href="https://dbadoy.github.io/2022/08/07/25489.html" rel="alternate" type="text/html" title="[Opened]account/abi: increase error message coverage #25489" /><published>2022-08-07T00:00:00+00:00</published><updated>2022-08-07T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/08/07/25489</id><content type="html" xml:base="https://dbadoy.github.io/2022/08/07/25489.html"><![CDATA[<p><a href="https://github.com/ethereum/go-ethereum/pull/25489">PR #25489</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ethereum" /><summary type="html"><![CDATA[PR #25489]]></summary></entry><entry><title type="html">sync.Mutex() vs sync.Atomic()</title><link href="https://dbadoy.github.io/2022/08/07/concurrent.html" rel="alternate" type="text/html" title="sync.Mutex() vs sync.Atomic()" /><published>2022-08-07T00:00:00+00:00</published><updated>2022-08-07T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/08/07/concurrent</id><content type="html" xml:base="https://dbadoy.github.io/2022/08/07/concurrent.html"><![CDATA[<h1 id="syncmutex-vs-syncatomic">sync.Mutex() vs sync.Atomic()</h1>
+<p>고루틴을 사용할 때는 특정 변수에 여러 고루틴이 접근하며 데드락이 발생하는 것을 막을 필요가 있다.
+해당 글에서는 Mutext와 Atomic의 속도를 비교해 본다.</p>
+
+<h1 id="결론">결론</h1>
+<p>Atomic이 훨씬 빠르다.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">test</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"sync"</span>
+	<span class="s">"sync/atomic"</span>
+	<span class="s">"testing"</span>
+<span class="p">)</span>
+
+<span class="k">type</span> <span class="n">Test</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">data</span> <span class="kt">uint32</span>
+	<span class="n">mu</span>   <span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span>
+<span class="p">}</span>
+
+<span class="c">// Set</span>
+<span class="k">func</span> <span class="n">BenchmarkMutexSet</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">t</span> <span class="o">:=</span> <span class="n">Test</span><span class="p">{}</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">t</span><span class="o">.</span><span class="n">mu</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+		<span class="n">t</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kt">uint32</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">t</span><span class="o">.</span><span class="n">mu</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">BenchmarkAtomicSet</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">t</span> <span class="o">:=</span> <span class="n">Test</span><span class="p">{}</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">atomic</span><span class="o">.</span><span class="n">StoreUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">t</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="kt">uint32</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c">// Load</span>
+<span class="k">func</span> <span class="n">BenchmarkMutexLoad</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">t</span> <span class="o">:=</span> <span class="n">Test</span><span class="p">{</span>
+		<span class="n">data</span><span class="o">:</span> <span class="m">1</span><span class="p">,</span>
+	<span class="p">}</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">t</span><span class="o">.</span><span class="n">mu</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+		<span class="n">_</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">data</span>
+		<span class="n">t</span><span class="o">.</span><span class="n">mu</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">BenchmarkAtomicLoad</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">t</span> <span class="o">:=</span> <span class="n">Test</span><span class="p">{</span>
+		<span class="n">data</span><span class="o">:</span> <span class="m">1</span><span class="p">,</span>
+	<span class="p">}</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">_</span> <span class="o">=</span> <span class="n">atomic</span><span class="o">.</span><span class="n">LoadUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">t</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Set
+BenchmarkMutexSet-10             1000000                26.86 ns/op
+BenchmarkAtomicSet-10            1000000                 0.4546 ns/op
+# Load
+BenchmarkMutexLoad-10            1000000                18.83 ns/op
+BenchmarkAtomicLoad-10           1000000                 0.6662 ns/op
+</code></pre></div></div>
+
+<p>물론 사용처가 다르고, 활용 범위가 넓은 Mutex를 주로 사용하게 되긴 하지만…</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Temp</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="o">.</span>
+    <span class="o">.</span>
+    <span class="o">.</span>
+    <span class="n">mu</span>     <span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span>
+    <span class="n">isInit</span> <span class="kt">bool</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">Temp</span><span class="p">)</span> <span class="n">isInit</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">mu</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+    <span class="k">defer</span> <span class="n">t</span><span class="o">.</span><span class="n">mu</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">isInit</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>이와 같이 특정 구조체가 초기화 되었는지 확인하기 위한 필드가 있다면 위와 같이 Mutex를 사용하기 보다는,</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Temp</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="o">.</span>
+    <span class="o">.</span>
+    <span class="o">.</span>
+    <span class="c">// 0 == need initial</span>
+    <span class="c">// 1 == already initialized</span>
+    <span class="n">isInit</span> <span class="kt">uint32</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">Temp</span><span class="p">)</span> <span class="n">isInit</span><span class="p">()</span> <span class="kt">uint32</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">atomic</span><span class="o">.</span><span class="n">LoadUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">t</span><span class="o">.</span><span class="n">inInit</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c">//</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">isInit</span><span class="p">()</span> <span class="o">==</span> <span class="m">1</span> <span class="p">{</span>
+        <span class="c">// already initialized...</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+<p>이렇게 Atomic을 쓰는 것도 한 방법이다.</p>]]></content><author><name>dbadoy</name></author><category term="go-benchmark" /><summary type="html"><![CDATA[sync.Mutex() vs sync.Atomic() 고루틴을 사용할 때는 특정 변수에 여러 고루틴이 접근하며 데드락이 발생하는 것을 막을 필요가 있다. 해당 글에서는 Mutext와 Atomic의 속도를 비교해 본다.]]></summary></entry><entry><title type="html">[Merged]all: replace docs.ipfs.io with docs.ipfs.tech #9158</title><link href="https://dbadoy.github.io/2022/08/04/9158.html" rel="alternate" type="text/html" title="[Merged]all: replace docs.ipfs.io with docs.ipfs.tech #9158" /><published>2022-08-04T00:00:00+00:00</published><updated>2022-08-04T00:00:00+00:00</updated><id>https://dbadoy.github.io/2022/08/04/9158</id><content type="html" xml:base="https://dbadoy.github.io/2022/08/04/9158.html"><![CDATA[<p><a href="https://github.com/ipfs/kubo/pull/9158">PR #9158</a></p>]]></content><author><name>dbadoy</name></author><category term="go-ipfs" /><summary type="html"><![CDATA[PR #9158]]></summary></entry></feed>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>strings.ToLower() vs bytes.ToLower() | dbadoy</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="strings.ToLower() vs bytes.ToLower()" />
+<meta name="author" content="dbadoy" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="strings.ToLower() vs bytes.ToLower() Golang의 ToLower(). 뭐가 더 빠를까?" />
+<meta property="og:description" content="strings.ToLower() vs bytes.ToLower() Golang의 ToLower(). 뭐가 더 빠를까?" />
+<link rel="canonical" href="https://dbadoy.github.io/2022/07/31/lower.html" />
+<meta property="og:url" content="https://dbadoy.github.io/2022/07/31/lower.html" />
+<meta property="og:site_name" content="dbadoy" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-31T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="strings.ToLower() vs bytes.ToLower()" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"dbadoy"},"dateModified":"2022-07-31T00:00:00+00:00","datePublished":"2022-07-31T00:00:00+00:00","description":"strings.ToLower() vs bytes.ToLower() Golang의 ToLower(). 뭐가 더 빠를까?","headline":"strings.ToLower() vs bytes.ToLower()","mainEntityOfPage":{"@type":"WebPage","@id":"https://dbadoy.github.io/2022/07/31/lower.html"},"url":"https://dbadoy.github.io/2022/07/31/lower.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://dbadoy.github.io/feed.xml" title="dbadoy" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">dbadoy</a>
+    <span class="social_links">
+        
+        
+        <a class="color-purple-hover" href="https://velog.io/@dbadoy"><i class="fab fa-blogger"></i></a>
+        
+        
+        
+        <a class="color-purple-hover" href="https://github.com/dbadoy"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://github.com/dbadoy.png
+" class="author-avatar" alt="Avatar" />
+<div class="description">dbadoy 블로그입니다.
+</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">strings.ToLower() vs bytes.ToLower()</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/go-benchmark/">go-benchmark</a>
+      
+  </div>
+  
+  <div class="post-date">Published on 31 Jul 2022</div>
+  
+  <h1 id="stringstolower-vs-bytestolower">strings.ToLower() vs bytes.ToLower()</h1>
+<p>Golang의 ToLower(). 뭐가 더 빠를까?</p>
+
+<h2 id="결론">결론</h2>
+<p>strings.ToLower를 사용하는 것보다 string을 []byte로 변환하여 bytes.ToLower 사용하는 것이 훨씬 빠르다.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">test</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"bytes"</span>
+	<span class="s">"strings"</span>
+	<span class="s">"testing"</span>
+<span class="p">)</span>
+
+<span class="k">const</span> <span class="n">TestString</span> <span class="o">=</span> <span class="s">"Lower Testing StaRtINg. Files Containing teSts shoUld bE CalLeD."</span>
+
+<span class="k">func</span> <span class="n">BenchmarkStringLower</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">_</span> <span class="o">=</span> <span class="n">strings</span><span class="o">.</span><span class="n">ToLower</span><span class="p">(</span><span class="n">TestString</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">BenchmarkByteLower</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">byt</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="n">TestString</span><span class="p">)</span>
+		<span class="n">_</span> <span class="o">=</span> <span class="kt">string</span><span class="p">(</span><span class="n">bytes</span><span class="o">.</span><span class="n">ToLower</span><span class="p">(</span><span class="n">byt</span><span class="p">))</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BenchmarkStringLower-10          1000000               211.0 ns/op
+BenchmarkByteLower-10            1000000               113.1 ns/op
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="why-">Why ?</h2>
+<p>사실 strings.ToLower 내부적으로 결국 []byte 를 쓴다.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// strings.ToLower</span>
+<span class="k">func</span> <span class="n">ToLower</span><span class="p">(</span><span class="n">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="n">isASCII</span><span class="p">,</span> <span class="n">hasUpper</span> <span class="o">:=</span> <span class="no">true</span><span class="p">,</span> <span class="no">false</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">c</span> <span class="o">:=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">c</span> <span class="o">&gt;=</span> <span class="n">utf8</span><span class="o">.</span><span class="n">RuneSelf</span> <span class="p">{</span>
+			<span class="n">isASCII</span> <span class="o">=</span> <span class="no">false</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="n">hasUpper</span> <span class="o">=</span> <span class="n">hasUpper</span> <span class="o">||</span> <span class="p">(</span><span class="sc">'A'</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="sc">'Z'</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="n">isASCII</span> <span class="p">{</span> <span class="c">// optimize for ASCII-only strings.</span>
+		<span class="k">if</span> <span class="o">!</span><span class="n">hasUpper</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="n">s</span>
+		<span class="p">}</span>
+		<span class="k">var</span> <span class="n">b</span> <span class="n">Builder</span>
+		<span class="n">b</span><span class="o">.</span><span class="n">Grow</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="n">c</span> <span class="o">:=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+			<span class="k">if</span> <span class="sc">'A'</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="sc">'Z'</span> <span class="p">{</span>
+				<span class="n">c</span> <span class="o">+=</span> <span class="sc">'a'</span> <span class="o">-</span> <span class="sc">'A'</span>
+			<span class="p">}</span>
+			<span class="n">b</span><span class="o">.</span><span class="n">WriteByte</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">String</span><span class="p">()</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">Map</span><span class="p">(</span><span class="n">unicode</span><span class="o">.</span><span class="n">ToLower</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위 코드의 Builder를 살펴보면…</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Builder</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">addr</span> <span class="o">*</span><span class="n">Builder</span> <span class="c">// of receiver, to detect copies by value</span>
+	<span class="n">buf</span>  <span class="p">[]</span><span class="kt">byte</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">Builder</span><span class="p">)</span> <span class="n">grow</span><span class="p">(</span><span class="n">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">buf</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">buf</span><span class="p">),</span> <span class="m">2</span><span class="o">*</span><span class="nb">cap</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">buf</span><span class="p">)</span><span class="o">+</span><span class="n">n</span><span class="p">)</span>
+	<span class="nb">copy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">buf</span><span class="p">)</span>
+	<span class="n">b</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="n">buf</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">Builder</span><span class="p">)</span> <span class="n">WriteByte</span><span class="p">(</span><span class="n">c</span> <span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="n">b</span><span class="o">.</span><span class="n">copyCheck</span><span class="p">()</span>
+	<span class="n">b</span><span class="o">.</span><span class="n">buf</span> <span class="o">=</span> <span class="nb">append</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">buf</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+	<span class="k">return</span> <span class="no">nil</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">Builder</span><span class="p">)</span> <span class="n">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">string</span><span class="p">)(</span><span class="n">unsafe</span><span class="o">.</span><span class="n">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="o">.</span><span class="n">buf</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 내부적으로 string을 []byte로 변환하여 관리하기 때문에 차라리 bytes.ToLower를 사용하는 것이 빠르다.
+<br /></p>
+
+<p>bytes.ToLower</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// bytes.ToLower</span>
+<span class="k">func</span> <span class="n">ToLower</span><span class="p">(</span><span class="n">s</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
+	<span class="n">isASCII</span><span class="p">,</span> <span class="n">hasUpper</span> <span class="o">:=</span> <span class="no">true</span><span class="p">,</span> <span class="no">false</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">c</span> <span class="o">:=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">c</span> <span class="o">&gt;=</span> <span class="n">utf8</span><span class="o">.</span><span class="n">RuneSelf</span> <span class="p">{</span>
+			<span class="n">isASCII</span> <span class="o">=</span> <span class="no">false</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="n">hasUpper</span> <span class="o">=</span> <span class="n">hasUpper</span> <span class="o">||</span> <span class="p">(</span><span class="sc">'A'</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="sc">'Z'</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="n">isASCII</span> <span class="p">{</span> <span class="c">// optimize for ASCII-only byte slices.</span>
+		<span class="k">if</span> <span class="o">!</span><span class="n">hasUpper</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">byte</span><span class="p">(</span><span class="s">""</span><span class="p">),</span> <span class="n">s</span><span class="o">...</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="n">b</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="n">c</span> <span class="o">:=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+			<span class="k">if</span> <span class="sc">'A'</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="sc">'Z'</span> <span class="p">{</span>
+				<span class="n">c</span> <span class="o">+=</span> <span class="sc">'a'</span> <span class="o">-</span> <span class="sc">'A'</span>
+			<span class="p">}</span>
+			<span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="n">b</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">Map</span><span class="p">(</span><span class="n">unicode</span><span class="o">.</span><span class="n">ToLower</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><br />
+속도가 중요하고, 길이가 긴 string에 대한 처리는 bytes를 사용하는 것이 좋겠다. 아니라면 깔끔하게 strings.ToLower를 사용하고…</p>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'https://dbadoy.github.io/2022/07/31/lower.html';
+     this.page.identifier = '/2022/07/31/lower';
+     this.page.title = 'strings.ToLower() vs bytes.ToLower()';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//dbadoy.dev.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2022/11/13/cap.html">
+            CAP
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/11/04/string-copy.html">
+            bytes.Buffer vs copy string
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/08/23/25570.html">
+            [Opened]rpc: check the JSON-RPC 2.0 spec that Version must be 2.0 #25570
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>카테고리</h2>
+  <div class="tag-cloud"><a href="/tag/audit/" class="set-1">audit</a> <a href="/tag/distributed-system/" class="set-1">distributed-system</a> <a href="/tag/go-benchmark/" class="set-2">go-benchmark</a> <a href="/tag/go-ethereum/" class="set-5">go-ethereum</a> <a href="/tag/go-ipfs/" class="set-1">go-ipfs</a> <a href="/tag/solidity/" class="set-1">solidity</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

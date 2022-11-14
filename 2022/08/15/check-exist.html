@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>os.Stat() vs os.Open() in check the file does exist | dbadoy</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="os.Stat() vs os.Open() in check the file does exist" />
+<meta name="author" content="dbadoy" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="os.Stat() vs os.Open() 일단, 위의 두 메서드는 사용처가 다르다. os.Stat()의 경우 파일에 대한 정보를 얻을 때 사용하며, os.File()의 경우, 파일을 컨트롤 할 때 사용한다. 내가 이 글에서 비교하고자 하는 상황은, 파일이 존재하는지 확인하는 경우이다." />
+<meta property="og:description" content="os.Stat() vs os.Open() 일단, 위의 두 메서드는 사용처가 다르다. os.Stat()의 경우 파일에 대한 정보를 얻을 때 사용하며, os.File()의 경우, 파일을 컨트롤 할 때 사용한다. 내가 이 글에서 비교하고자 하는 상황은, 파일이 존재하는지 확인하는 경우이다." />
+<link rel="canonical" href="https://dbadoy.github.io/2022/08/15/check-exist.html" />
+<meta property="og:url" content="https://dbadoy.github.io/2022/08/15/check-exist.html" />
+<meta property="og:site_name" content="dbadoy" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-08-15T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="os.Stat() vs os.Open() in check the file does exist" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"dbadoy"},"dateModified":"2022-08-15T00:00:00+00:00","datePublished":"2022-08-15T00:00:00+00:00","description":"os.Stat() vs os.Open() 일단, 위의 두 메서드는 사용처가 다르다. os.Stat()의 경우 파일에 대한 정보를 얻을 때 사용하며, os.File()의 경우, 파일을 컨트롤 할 때 사용한다. 내가 이 글에서 비교하고자 하는 상황은, 파일이 존재하는지 확인하는 경우이다.","headline":"os.Stat() vs os.Open() in check the file does exist","mainEntityOfPage":{"@type":"WebPage","@id":"https://dbadoy.github.io/2022/08/15/check-exist.html"},"url":"https://dbadoy.github.io/2022/08/15/check-exist.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://dbadoy.github.io/feed.xml" title="dbadoy" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">dbadoy</a>
+    <span class="social_links">
+        
+        
+        <a class="color-purple-hover" href="https://velog.io/@dbadoy"><i class="fab fa-blogger"></i></a>
+        
+        
+        
+        <a class="color-purple-hover" href="https://github.com/dbadoy"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://github.com/dbadoy.png
+" class="author-avatar" alt="Avatar" />
+<div class="description">dbadoy 블로그입니다.
+</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">os.Stat() vs os.Open() in check the file does exist</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/go-benchmark/">go-benchmark</a>
+      
+  </div>
+  
+  <div class="post-date">Published on 15 Aug 2022</div>
+  
+  <h1 id="osstat-vs-osopen">os.Stat() vs os.Open()</h1>
+<p>일단, 위의 두 메서드는 사용처가 다르다. os.Stat()의 경우 파일에 대한 정보를 얻을 때 사용하며, os.File()의 경우, 파일을 컨트롤 할 때 사용한다.<br />
+내가 이 글에서 비교하고자 하는 상황은, 파일이 존재하는지 확인하는 경우이다.</p>
+
+<h1 id="결론">결론</h1>
+<p>단순히 생각해보았을 때, 파일에 대한 정보만 가져오는 os.Stat()이 훨씬 빠를 것 같다.
+실제로도 더 빠르다.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">test</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"os"</span>
+	<span class="s">"testing"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">BenchmarkStatExistFile</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Stat</span><span class="p">(</span><span class="s">"./source"</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">BenchmarkOpenExistFile</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s">"./source"</span><span class="p">)</span>
+
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">BenchmarkStatNotExistFile</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Stat</span><span class="p">(</span><span class="s">"./sourceaaaaaa"</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">BenchmarkOpenNotExistFile</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span><span class="n">testing</span><span class="o">.</span><span class="n">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s">"./sourceaaaaaa"</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BenchmarkStatExistFile-10                1000000               480.1 ns/op
+BenchmarkOpenExistFile-10                1000000               567.5 ns/op
+BenchmarkStatNotExistFile-10             1000000               483.3 ns/op
+BenchmarkOpenNotExistFile-10             1000000               570.2 ns/op
+</code></pre></div></div>
+
+<p>os.Stat()이 더 빠르긴 하지만, 드라마틱하게 빠르진 않다. 약 18% 정도? <br /></p>
+
+<p>막연히 os.Stat()이 빠르다고 생각하던 이유는, os.File()은 직접 파일하고 연결되기 때문에, 파일 정보만 읽어오는 os.Stat()이 더 빠르겠다는 단순한 생각이었다. <br />
+하지만, os.File() 리턴값 자체는 파일에 접근할 File Descriptor만 넘어오기 때문에 그렇게 차이가 크지 않았던 것이다. <br /><br /></p>
+
+<p>그러한 점에서, 파일 정보를 변수에 담아 리턴하는 os.Stat() 메모리 할당량이 더 크다 <br /></p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">FileInfo</span> <span class="k">interface</span> <span class="p">{</span>
+	<span class="n">Name</span><span class="p">()</span> <span class="kt">string</span>       <span class="c">// base name of the file</span>
+	<span class="n">Size</span><span class="p">()</span> <span class="kt">int64</span>        <span class="c">// length in bytes for regular files; system-dependent for others</span>
+	<span class="n">Mode</span><span class="p">()</span> <span class="n">FileMode</span>     <span class="c">// file mode bits</span>
+	<span class="n">ModTime</span><span class="p">()</span> <span class="n">time</span><span class="o">.</span><span class="n">Time</span> <span class="c">// modification time</span>
+	<span class="n">IsDir</span><span class="p">()</span> <span class="kt">bool</span>        <span class="c">// abbreviation for Mode().IsDir()</span>
+	<span class="n">Sys</span><span class="p">()</span> <span class="n">any</span>           <span class="c">// underlying data source (can return nil)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>benchmark 메모리 할당값</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BenchmarkStatExistFile-10                481.4 ns/op           272 B/op          3 allocs/op
+BenchmarkOpenExistFile-10                554.6 ns/op            64 B/op          2 allocs/op
+BenchmarkStatNotExistFile-10             509.7 ns/op           272 B/op          3 allocs/op
+BenchmarkOpenNotExistFile-10             565.8 ns/op            64 B/op          2 allocs/op
+</code></pre></div></div>
+
+<p><br />
+아무튼… 결과적으로,</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">err</span> <span class="kt">error</span>
+<span class="c">// case 1</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s">"./test.txt"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">IsNotExist</span><span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c">// not exist</span>
+<span class="p">}</span>
+
+<span class="c">// case2</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Stat</span><span class="p">(</span><span class="s">"./test.txt"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">IsNotExist</span><span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c">// not exist</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>위 두개는 굳이 성능을 생각하여 골라 쓸 필요는 없다고 생각된다. 굳이 굳이 성능적인 측면을 비교 해 보자면, 속도가 중요하면 os.Stat(), 메모리 절약이 중요하면 os.File()이 되겠다.</p>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'https://dbadoy.github.io/2022/08/15/check-exist.html';
+     this.page.identifier = '/2022/08/15/check-exist';
+     this.page.title = 'os.Stat() vs os.Open() in check the file does exist';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//dbadoy.dev.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2022/11/13/cap.html">
+            CAP
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/11/04/string-copy.html">
+            bytes.Buffer vs copy string
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/08/23/25570.html">
+            [Opened]rpc: check the JSON-RPC 2.0 spec that Version must be 2.0 #25570
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>카테고리</h2>
+  <div class="tag-cloud"><a href="/tag/audit/" class="set-1">audit</a> <a href="/tag/distributed-system/" class="set-1">distributed-system</a> <a href="/tag/go-benchmark/" class="set-2">go-benchmark</a> <a href="/tag/go-ethereum/" class="set-5">go-ethereum</a> <a href="/tag/go-ipfs/" class="set-1">go-ipfs</a> <a href="/tag/solidity/" class="set-1">solidity</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

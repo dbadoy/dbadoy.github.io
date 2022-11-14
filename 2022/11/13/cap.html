@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>CAP | dbadoy</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="CAP" />
+<meta name="author" content="dbadoy" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Consistency, Availability, Partition-Tolerance" />
+<meta property="og:description" content="Consistency, Availability, Partition-Tolerance" />
+<link rel="canonical" href="https://dbadoy.github.io/2022/11/13/cap.html" />
+<meta property="og:url" content="https://dbadoy.github.io/2022/11/13/cap.html" />
+<meta property="og:site_name" content="dbadoy" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-13T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="CAP" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"dbadoy"},"dateModified":"2022-11-13T00:00:00+00:00","datePublished":"2022-11-13T00:00:00+00:00","description":"Consistency, Availability, Partition-Tolerance","headline":"CAP","mainEntityOfPage":{"@type":"WebPage","@id":"https://dbadoy.github.io/2022/11/13/cap.html"},"url":"https://dbadoy.github.io/2022/11/13/cap.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://dbadoy.github.io/feed.xml" title="dbadoy" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">dbadoy</a>
+    <span class="social_links">
+        
+        
+        <a class="color-purple-hover" href="https://velog.io/@dbadoy"><i class="fab fa-blogger"></i></a>
+        
+        
+        
+        <a class="color-purple-hover" href="https://github.com/dbadoy"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://github.com/dbadoy.png
+" class="author-avatar" alt="Avatar" />
+<div class="description">dbadoy 블로그입니다.
+</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">CAP</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/distributed-system/">distributed-system</a>
+      
+  </div>
+  
+  <div class="post-date">Published on 13 Nov 2022</div>
+  
+  <p><strong>Consistency, Availability, Partition-Tolerance</strong></p>
+
+<p>분산 데이터베이스에서는 위 세 가지 중 두 가지만 제공할 수 있다고 말합니다.</p>
+
+<p>(; 메세지가 손실될 수 있는 비동기식 네트워크에서는 모든 메세지 손실 패턴에서 모든 요청에 응답하는 순차적으로 일관된 읽기/쓰기 레지스터를 구현하는 것이 불가능하다.)</p>
+
+<p>단 해당 이론에는 Partition Tolerance에 대한 정의가 부족하다는 문제가 제기 되거나, 분산 시스템에는 더 많은 요소들이 있다고 주장하는 의견도 있는 만큼 참고만 하는 것이 좋아보입니다.</p>
+
+<h3 id="consistency-일관성">Consistency (일관성)</h3>
+
+<p>모든 클라이언트가 동시에 동일 데이터를 볼 수 있습니다. 모든 읽기는 가장 최근에 쓰인 값이나 에러를 수신합니다.</p>
+
+<h3 id="availability-유효성">Availability (유효성)</h3>
+
+<p>하나 이상의 노드가 작동 중지된 경우에도 클라이언트가 응답을 받을 수 있습니다. 가장 최근에 쓰인 값이 포함되어 있다는 보장 없이 응답을 수신합니다.</p>
+
+<h3 id="partition-tolerance-파티션-허용--분할-내구성">Partition Tolerance (파티션 허용 = 분할 내구성)</h3>
+
+<p>분산 시스템 내의 통신 단절, 네트워크 및  노드의 연결 유실 등으로 네트워크가 분리되었을 때도 시스템이 작동해야 합니다.</p>
+
+<p>Partition Tolerance는 크게 아래의 두 행동을 할 수 있습니다.</p>
+
+<ul>
+  <li>작업을 취소하여 가용성을 희생하여 일관성을 보장합니다.</li>
+  <li>작업을 진행하여 가용성을 제공하지만 일관성을 희생합니다.</li>
+</ul>
+
+<p>CAP에서 말하는 일관성은 transaction의 ACID에서의 일관성과는 많이 다릅니다.</p>
+
+<blockquote>
+  <p>Transaction ACID의 일관성?
+트랜잭션이 일어난 이후의 데이터베이스는 데이터베이스의 제약이나 규칙을 만족해야 한다.</p>
+
+</blockquote>
+
+<p>그러나 분산 시스템은 네트워크 장애로부터 안전하지 않으므로 네트워크 분할을 허용해야 합니다. 따라서 CAP에 따르면 일관성, 유효성  중 하나만 선택할 수 있게 됩니다.</p>
+
+<p><strong>각 모델에 따른 허점</strong></p>
+
+<h3 id="cp-모델">CP 모델</h3>
+
+<p>완벽한 일관성을 가져야 하는 시스템에서 사용합니다. 데이터 변경은 모든 노드에 복제되어야 완료됩니다. 가용성이나 성능이 크게 희생됩니다(만약 하나의 노드라도 문제가 있으면 트랜잭션이 실패되며 노드가 늘어날 수록 지연시간이 길어집니다).</p>
+
+<h3 id="ca-모델">CA 모델</h3>
+
+<p>일관성과 가용성을 모두 만족하려면 네트워크 장애를 허용하지 않아야 합니다. 그러나 네트워크 장애가 없는 시스템은 없기 때문에 모델 구성에 ‘P’가 필수적이게 됩니다.</p>
+
+<h3 id="ap-모델">AP 모델</h3>
+
+<p>가용성을 갖는 분산 시스템은 모든 노드가 어떤 상황에서도 응답할 수 있어야 합니다. 만약 네트워크 문제로 인하여 어떤 노드에 복제가 제대로 이루어지지 않더라도 가용성을 위하여 동기화 되지 않은 데이터를 사용자에게 반환합니다. 때문에 일관성을 갖지 못하고, 사용자는 문제 발생을 알아차리지 못하게 됩니다.</p>
+
+<p>보통 분산 데이터베이스는 복제와 샤딩 기능을 지원합니다. 복제 기능으로 인하여 모든 노드가 동일한 데이터를 가져 일관성을 충족합니다. 샤딩을 통해 데이터를 각 노드에 나눠서 저장하기 때문에 유효성도 얻을 수 있습니다.</p>
+
+<p>NoSQL 같은 경우는 데이터의 전파를 느슨하게 처리합니다. 데이터의 변경을 시간의 흐름에 따라 여러 노드로 전파하죠. 이러한 방법을 최종 일관성(Eventual consistency)라고 합니다.</p>
+
+<p>이 방법에서는 두가지 방법을 통해 노드간 데이터 동기화를 이룹니다.</p>
+
+<ol>
+  <li>데이터의 저장 결과를 클라이언트로 응답하기 전에 모든 데이터를 저장하는 동기식 방법. 느리지만 데이터의 일관성을 보장합니다.</li>
+  <li>메모리나 임시 파일에 기록하여 클라이언트에 응답한 뒤, 이벤트 및 프로세스를 사용하여 노드로 데이터를 동기화하는 비동기식 방법. 빠른 응답시간을 갖지만 쓰는 과정에서 장애가 발생하면 데이터 손실이 일어날 수 있습니다.</li>
+</ol>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'https://dbadoy.github.io/2022/11/13/cap.html';
+     this.page.identifier = '/2022/11/13/cap';
+     this.page.title = 'CAP';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//dbadoy.dev.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2022/11/04/string-copy.html">
+            bytes.Buffer vs copy string
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/08/23/25570.html">
+            [Opened]rpc: check the JSON-RPC 2.0 spec that Version must be 2.0 #25570
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/08/23/25560.html">
+            [Closed]rpc: reduce mutex range #25560
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>카테고리</h2>
+  <div class="tag-cloud"><a href="/tag/audit/" class="set-1">audit</a> <a href="/tag/distributed-system/" class="set-1">distributed-system</a> <a href="/tag/go-benchmark/" class="set-2">go-benchmark</a> <a href="/tag/go-ethereum/" class="set-5">go-ethereum</a> <a href="/tag/go-ipfs/" class="set-1">go-ipfs</a> <a href="/tag/solidity/" class="set-1">solidity</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

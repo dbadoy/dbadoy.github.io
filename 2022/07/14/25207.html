@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Closed]Reduce StateDB load count in GetTransactionCount() #25207 | dbadoy</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="[Closed]Reduce StateDB load count in GetTransactionCount() #25207" />
+<meta name="author" content="dbadoy" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="ISSUE #25207" />
+<meta property="og:description" content="ISSUE #25207" />
+<link rel="canonical" href="https://dbadoy.github.io/2022/07/14/25207.html" />
+<meta property="og:url" content="https://dbadoy.github.io/2022/07/14/25207.html" />
+<meta property="og:site_name" content="dbadoy" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-14T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Closed]Reduce StateDB load count in GetTransactionCount() #25207" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"dbadoy"},"dateModified":"2022-07-14T00:00:00+00:00","datePublished":"2022-07-14T00:00:00+00:00","description":"ISSUE #25207","headline":"[Closed]Reduce StateDB load count in GetTransactionCount() #25207","mainEntityOfPage":{"@type":"WebPage","@id":"https://dbadoy.github.io/2022/07/14/25207.html"},"url":"https://dbadoy.github.io/2022/07/14/25207.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://dbadoy.github.io/feed.xml" title="dbadoy" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">dbadoy</a>
+    <span class="social_links">
+        
+        
+        <a class="color-purple-hover" href="https://velog.io/@dbadoy"><i class="fab fa-blogger"></i></a>
+        
+        
+        
+        <a class="color-purple-hover" href="https://github.com/dbadoy"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://github.com/dbadoy.png
+" class="author-avatar" alt="Avatar" />
+<div class="description">dbadoy 블로그입니다.
+</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">[Closed]Reduce StateDB load count in GetTransactionCount() #25207</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/go-ethereum/">go-ethereum</a>
+      
+  </div>
+  
+  <div class="post-date">Published on 14 Jul 2022</div>
+  
+  <p><a href="https://github.com/ethereum/go-ethereum/issues/25207">ISSUE #25207</a></p>
+
+<p><br />
+해당 이슈를 만들게 된 것은 아래 링크의 글로부터 시작했다. <br />
+<a href="https://velog.io/@dbadoy/%EC%9D%B4%EB%8D%94%EB%A6%AC%EC%9B%80-%EC%BD%94%EC%96%B4-get-Nonce-%EA%B3%BC%EC%A0%95">Velog</a> <br />
+처음에는 그저 address의 nonce값을 가져오는 과정이 궁금하여 찾아보았는데, 찾다보니 txNoncer라는 것을 보게되었다. <br />
+txNoncer는 txPool에 포함되는 모듈로, pending transaction까지 모두 포함한 nonce 값을 캐싱하고 있는 구조체다. <br /></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">txNoncer</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">fallback</span> <span class="o">*</span><span class="n">state</span><span class="o">.</span><span class="n">StateDB</span>
+	<span class="n">nonces</span>   <span class="k">map</span><span class="p">[</span><span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">]</span><span class="kt">uint64</span>
+	<span class="n">lock</span>     <span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>기존에 nonce 값을 가져올 때는, DB에서 그 값을 가져오는 반면 txNoncer에서 nonce 값을 가져올 때는 map에서 값을 가져오기 때문에 훨씬 빠를 것이다. <br />
+그래서 생각이 든 것은, 최대한 DB에서 값을 가져오는 것 보다는 txNoncer를 활용하는 것이 어떨까? 였다. <br /></p>
+
+<p>txNoncer의 map에는 transaction pool에 들어가있는 nonce 값까지 갖고 있다. <br />
+실제 state에 ‘0x0001’의 nonce 값이 5이고, transaction pool에 ‘0x0001’ 의 트랜잭션이 두 개가 들어가 있으면, <br /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{..., from: '0x0001', nonce: 6 }
+{..., from: '0x0001', nonce: 7 }
+</code></pre></div></div>
+<p>txNoncer map에는 map[‘0x0001] == 8 이 들어가있는 것이다. <br />
+transaction pool 에는 pending과 queue, 두 개가 transaction을 보관하고 있다. <br />
+pending에는 실행이 가능한 transaction이 모여있고. queue에는 현재 실행 불가능한 transaction이 모여 있다. (예를 들어, nonce가 7인 ‘0x0001’ address로, nonce 20으로 설정하여 transaction을 보내면 노드 transaction pool의 queue에 들어가게 된다.) <br />
+이를 이용하여 getTransactionCount()를 optimize 해보자. <br />
+만약 transaction pool의 pending, queue에 transaction이 하나도 없다면, txNoncer에 캐싱된 nonce값과 실제 state의 nonce값은 동일할 것이다. 그렇다면 굳이 db로 부터 state를 새로 생성하여 nonce를 가져올 필요 없이, txNoncer로 부터 가져오는 게 어떨까? <br /></p>
+
+<p>라는 아이디어로 ‘아 이거는 말이 된다. 적용되겠다’ 하며 Issue를 생성했는데… <br />
+좋지 않은 생각이라고 한다. <br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>karalabe 
+Both versions abuse the txpool as a cache for a statedb, which is bad imho. When accessing stuff from an existing block, we should not rely on some quirky behavior of the pool.
+</code></pre></div></div>
+<p>블록에 있는 데이터에 접근 할 때는, 다른 것에 의존해서는 안된다는 답이 왔다. <br />
+만약 웹 백엔드 서버였어도 이 같은 제안이 거절되었을까? 더 빠르고 부담도 적게 원하는 값을 가져올 수 있는 방법인데. <br />
+블록체인에서는 단순히 리소스나 성능을 생각하는 것이 아닌, 블록에 있는 데이터와 캐시에 있는 데이터가 확실히 일치하는 경우에도 블록에 데이터를 가져오는 것이다. <br />
+이런 점들이 블록체인에 재미를 느끼게 해주는 것 같다. 재밌는 경험이었다. <br /></p>
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'https://dbadoy.github.io/2022/07/14/25207.html';
+     this.page.identifier = '/2022/07/14/25207';
+     this.page.title = '[Closed]Reduce StateDB load count in GetTransactionCount() #25207';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//dbadoy.dev.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2022/11/13/cap.html">
+            CAP
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/11/04/string-copy.html">
+            bytes.Buffer vs copy string
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/08/23/25570.html">
+            [Opened]rpc: check the JSON-RPC 2.0 spec that Version must be 2.0 #25570
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>카테고리</h2>
+  <div class="tag-cloud"><a href="/tag/audit/" class="set-1">audit</a> <a href="/tag/distributed-system/" class="set-1">distributed-system</a> <a href="/tag/go-benchmark/" class="set-2">go-benchmark</a> <a href="/tag/go-ethereum/" class="set-5">go-ethereum</a> <a href="/tag/go-ipfs/" class="set-1">go-ipfs</a> <a href="/tag/solidity/" class="set-1">solidity</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>
